@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Digital Dustak</title>
+  <meta name="description" content="Book a strategy call to start scaling your brand with video today.">
+  <link rel="stylesheet" href="styles/index.css">
+  <style>
+    /* ── Keyframes ─────────────────────────────────────────────── */
+    @keyframes borderRotate {
+      0%   { --angle: 0deg; }
+      100% { --angle: 360deg; }
+    }
+    @keyframes borderRotateSocial {
+      0%   { --angle2: 0deg; }
+      100% { --angle2: 360deg; }
+    }
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    @property --angle2 {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    /* ── Contact Container ─────────────────────────────────────── */
+    .contact-container {
+      max-width: 600px;
+      margin: 150px auto 100px;
+      padding: 3rem;
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      position: relative;
+      /* animated gradient border via background-clip trick */
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      animation: borderRotate 4s linear infinite;
+      box-shadow: 0 0 35px rgba(245, 124, 44, 0.12), 0 0 80px rgba(120, 60, 200, 0.08);
+    }
+
+    /* Rotating gradient border layer */
+    .contact-container::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      padding: 2px;
+      background: conic-gradient(
+        from var(--angle),
+        #f57c2c 0%,
+        #c040fb 20%,
+        #00e5ff 40%,
+        #f57c2c 60%,
+        #ff6f00 80%,
+        #f57c2c 100%
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      animation: borderRotate 4s linear infinite;
+      z-index: 0;
+    }
+
+    /* Glow pulse under the box */
+    .contact-container::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 20px;
+      background: conic-gradient(
+        from var(--angle),
+        rgba(245,124,44,0.35) 0%,
+        rgba(192,64,251,0.25) 25%,
+        rgba(0,229,255,0.25) 50%,
+        rgba(245,124,44,0.35) 100%
+      );
+      filter: blur(14px);
+      animation: borderRotate 4s linear infinite;
+      z-index: -1;
+    }
+
+    .contact-container > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Social Link Pills ─────────────────────────────────────── */
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 500;
+      text-decoration: none;
+      position: relative;
+      border: 2px solid transparent;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: borderRotateSocial 3s linear infinite;
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50px;
+      background: conic-gradient(
+        from var(--angle2),
+        currentColor 0%,
+        transparent 30%,
+        transparent 70%,
+        currentColor 100%
+      );
+      opacity: 0.55;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      animation: borderRotateSocial 3s linear infinite;
+    }
+
+    .social-link::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50px;
+      background: conic-gradient(
+        from var(--angle2),
+        currentColor 0%,
+        transparent 35%,
+        transparent 65%,
+        currentColor 100%
+      );
+      filter: blur(8px);
+      opacity: 0.3;
+      animation: borderRotateSocial 3s linear infinite;
+      z-index: -1;
+    }
+
+    .social-link:hover {
+      transform: scale(1.07) translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+    }
+
+    /* ── Form Elements ─────────────────────────────────────────── */
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-gray);
+      font-size: 0.95rem;
+    }
+
+    select {
+        width: 100%;
+        padding: 1rem 1.25rem;
+        background: var(--bg-primary);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: var(--text-white);
+        font-family: var(--font-main);
+        font-size: 1rem;
+        transition: var(--transition);
+        appearance: none;
+    }
+
+    select:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 4px rgba(245, 124, 44, 0.15);
+    }
+
+    /* ── Input Box Animation ───────────────────────────────────── */
+    .form-input-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .form-input-container input,
+    .form-input-container textarea,
+    .form-input-container select {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      background: var(--bg-primary) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: var(--text-white);
+      font-family: var(--font-main);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-input-container::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 9px;
+      padding: 1px;
+      background: conic-gradient(
+        from var(--angle2),
+        var(--accent-color) 0%,
+        transparent 25%,
+        transparent 75%,
+        var(--accent-color) 100%
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      animation: borderRotateSocial 3s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
+    }
+
+    .form-input-container:focus-within::before {
+      opacity: 1;
+    }
+    
+    .form-input-container:focus-within input,
+    .form-input-container:focus-within textarea,
+    .form-input-container:focus-within select {
+      border-color: transparent;
+      box-shadow: 0 0 15px rgba(245, 124, 44, 0.2);
+    }
+  </style>
+</head>
+<body style="background: url('assets/hero_bg.png') no-repeat center center/cover; background-attachment: fixed;">
+  <div class="bg-vortex"></div>
+  <canvas id="dust-canvas"></canvas>
+
+  <!-- Dark Overlay -->
+  <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(31,31,31,0.9); z-index: -1;"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo" style="display: flex; align-items: center;">
+        <img src="assets/Digital%20Dustak%20Logo%20png.png" alt="Digital Dustak Logo" style="height: 48px; width: auto; max-width: 250px; object-fit: contain;">
+      </a>
+      <button class="mobile-menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="process.html">Process</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Contact Form -->
+  <div class="container text-center">
+    <div class="contact-container fade-up">
+      <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Let's Talk <span class="highlight">Strategy</span></h1>
+      <p style="margin-bottom: 2rem;">Fill out the brief form below to see if we're a good fit to scale your brand.</p>
+
+      <div style="margin-bottom: 3rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem;">
+        <a href="https://wa.me/923115511620" target="_blank" class="social-link" style="color: #25D366; background: rgba(37, 211, 102, 0.1);">
+          <img src="assets/contact%20icon/whatsapp-icon-seeklogo.png" alt="WhatsApp" style="width: 24px; height: 24px; object-fit: contain;">
+          +923115511620
+        </a>
+        <a href="mailto:admin@digitaldustak.com" target="_blank" class="social-link" style="color: #EA4335; background: rgba(234, 67, 53, 0.1);">
+          <img src="assets/contact%20icon/gmail-new-2020-seeklogo.png" alt="Email" style="width: 24px; height: 24px; object-fit: contain;">
+          admin@digitaldustak.com
+        </a>
+        <a href="https://www.upwork.com/freelancers/mmedtzz?mp_source=share" target="_blank" class="social-link" style="color: #14A800; background: rgba(20, 168, 0, 0.1);">
+          <img src="assets/contact%20icon/upwork-seeklogo.png" alt="Upwork" style="width: 24px; height: 24px; object-fit: contain;">
+          Upwork
+        </a>
+        <a href="https://www.instagram.com/digitaldustak?igsh=M2N2bTNzMnhrN3Jh" target="_blank" class="social-link" style="color: #E1306C; background: rgba(225, 48, 108, 0.1);">
+          <img src="assets/contact%20icon/instagram-new-2016-seeklogo.png" alt="Instagram" style="width: 24px; height: 24px; object-fit: contain;">
+          Instagram
+        </a>
+        <a href="https://www.linkedin.com/in/mmedtzzcc/" target="_blank" class="social-link" style="color: #0A66C2; background: rgba(10, 102, 194, 0.1);">
+          <img src="assets/contact%20icon/linked-in-linkedin-seeklogo.png" alt="LinkedIn" style="width: 24px; height: 24px; object-fit: contain;">
+          LinkedIn
+        </a>
+      </div>
+
+      <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Form submitted successfully!');">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <div class="form-input-container">
+            <input type="text" id="name" name="name" required placeholder="John Doe">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Work Email</label>
+          <div class="form-input-container">
+            <input type="email" id="email" name="email" required placeholder="john@company.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="budget">Monthly Marketing Budget</label>
+          <div class="form-input-container">
+            <select id="budget" name="budget" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="500to1000">$500 to $1000 / mo</option>
+                <option value="1000to2000">$1000 to $2000 / mo</option>
+                <option value="2000to3000">$2000 to $3000 / mo</option>
+                <option value="morethan3000">$3000 or more / mo</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Anything specific we should know?</label>
+          <div class="form-input-container">
+            <textarea id="message" name="message" rows="4" placeholder="Briefly describe your goals..."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary social-link" style="width: 100%; padding: 1.25rem; font-size: 1.125rem; color: var(--accent-color); background: rgba(245, 124, 44, 0.1);">Apply to Work With Us</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>

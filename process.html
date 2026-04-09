@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Strategic Process | Digital Dustak</title>
+  <meta name="description" content="Go behind the scenes of how we scale brands. Our 9-step video engineering architecture designed for viral velocity.">
+  <link rel="stylesheet" href="styles/index.css">
+  <style>
+    /* ── Keyframes ─────────────────────────────────────────────── */
+    @keyframes borderRotate {
+      0%   { --angle: 0deg; }
+      100% { --angle: 360deg; }
+    }
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    /* ── Hero Section ──────────────────────────────────────────── */
+    .process-hero {
+      padding: 180px 0 100px;
+      text-align: center;
+      position: relative;
+    }
+
+    .process-hero h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+    }
+
+    /* ── The 9-Step Architecture ───────────────────────────────── */
+    /* ── The 9-Step Architecture ───────────────────────────────── */
+    .steps-wrapper {
+      perspective: 1000px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 3rem;
+      padding: 4rem 0 8rem;
+    }
+
+    .process-card {
+      background: rgba(42, 42, 42, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 3.5rem 2.5rem;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    /* Architectural Background Numbers */
+    .process-card::before {
+      content: attr(data-step);
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 10rem;
+      font-weight: 900;
+      color: rgba(245, 124, 44, 0.05);
+      line-height: 1;
+      font-family: 'Inter', sans-serif;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* HUD Corner Decals */
+    .hud-corner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--accent-color);
+      opacity: 0.3;
+      transition: opacity 0.3s ease, border-width 0.3s ease;
+    }
+    .process-card:hover .hud-corner {
+      opacity: 0.8;
+      border-width: 3px;
+    }
+    .hud-corner.tl { top: 15px; left: 15px; border-right: none; border-bottom: none; }
+    .hud-corner.tr { top: 15px; right: 15px; border-left: none; border-bottom: none; }
+    .hud-corner.bl { bottom: 15px; left: 15px; border-right: none; border-top: none; }
+    .hud-corner.br { bottom: 15px; right: 15px; border-left: none; border-top: none; }
+
+    /* Moving light border */
+    .card-border-glow {
+      position: absolute;
+      inset: -1px;
+      border-radius: 20px;
+      padding: 2px;
+      background: conic-gradient(from var(--angle), transparent, var(--accent-color), transparent 30%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: borderRotate 4s linear infinite;
+      opacity: 0.2;
+      transition: opacity 0.3s ease;
+    }
+    .process-card:hover .card-border-glow {
+      opacity: 0.6;
+    }
+
+    .process-card h3 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+      color: #fff;
+    }
+
+    .process-card p {
+      color: var(--text-gray);
+      line-height: 1.8;
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-badge {
+      font-family: monospace;
+      color: var(--accent-color);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .step-badge::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-color);
+    }
+
+    .final-cta h2 {
+      font-size: 3.5rem;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body style="background: url('assets/hero_bg.png') no-repeat center center/cover; background-attachment: fixed;">
+  <div class="bg-vortex"></div>
+  <canvas id="dust-canvas"></canvas>
+
+  <!-- Dark Overlay with Blur (Z-index 5 ensures it blurs the vortex, dust, and playhead) -->
+  <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12,12,12,0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 5;"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo" style="display: flex; align-items: center;">
+        <img src="assets/Digital%20Dustak%20Logo%20png.png" alt="Digital Dustak Logo" style="height: 48px; width: auto; max-width: 250px; object-fit: contain;">
+      </a>
+      <button class="mobile-menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="process.html" class="active">Process</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem;">Book a Call</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <header class="process-hero fade-up">
+      <span class="step-badge" style="justify-content: center;">Go Behind The Scenes</span>
+      <h1>How We <span class="highlight">Engineer</span> Viral Velocity</h1>
+      <p style="max-width: 700px; margin: 0 auto; font-size: 1.25rem;">
+        We don't just "edit videos." We architect attention. From data-driven research to automated management — here is exactly how we scale your brand.
+      </p>
+    </header>
+
+    <!-- 9-Step Grid -->
+    <div class="steps-wrapper">
+      <div class="steps-grid">
+        <!-- Step 1 -->
+        <div class="process-card fade-up" data-step="01">
+          <div class="card-border-glow"></div>
+          <div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>
+          <div class="step-badge">Phase 01</div>
+          <h3>Understanding You</h3>
+          <p>Before we jump into anything, we send you a detailed questionnaire. This helps us understand exactly what resources you have, what your brand is about, what your goals are, and what you're comfortable with on camera. Because every brand is different — some love being on camera, some prefer voiceover-style content, some want a mix. Once we know your situation inside out, we move forward with a clear picture.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="process-card fade-up" data-step="02">
+          <div class="card-border-glow"></div>
+          <div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>
+          <div class="step-badge">Phase 02</div>
+          <h3>Research & Idea Generation</h3>
+          <p>Based on your questionnaire answers, our team deep dives into your niche. We study what's trending, what's going viral, what your competitors are doing, and what gaps exist. Then we generate content ideas specifically tailored to your brand — not random ideas, but ideas backed by data and market research.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="process-card fade-up" data-step="03">
+          <div class="card-border-glow"></div>
+          <div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>
+          <div class="step-badge">Phase 03</div>
+          <h3>Content Planning</h3>
+          <p>This is where we map out your production. If you're going on camera, we tell you exactly what outfits to wear, what backgrounds to use, and what lighting setups work best. If it's a voiceover-style video, we select the right tone and pacing. Every detail is planned so that when it's time to create, there's zero friction.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="process-card fade-up" data-step="04">
+          <div class="card-border-glow"></div>
+          <div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>
+          <div class="step-badge">Phase 04</div>
+          <h3>Scripting & Hook Engineering</h3>
+          <p>The first 3 seconds are everything. Our expert copywriters craft scripts that are engineered to stop the scroll. We focus on high-impact "hooks" and psychological triggers that keep viewers watching until the very end. We don't just write scripts; we build retention maps.</p>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="process-card fade-up" data-step="05">
+          <div class="card-border-glow"></div>
+          <div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>
+          <div class="step-badge">Phase 05</div>
+          <h3>The Shooting Stage</h3>
+          <p>Now, it's time for action. You or our creators record the footage based on the plan we've built. Don't worry about being perfect — our scripting and planning make this part effortless. You just provide the raw energy, and we'll handle the rest.</p>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="process-card fade-up" data-step="06">
+          <div class="card-border-glow"></div>
+          <div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>
+          <div class="step-badge">Phase 06</div>
+          <h3>Footage Organization</h3>
+          <p>Once raw files are in, our systems take over. We organize, tag, and prepare your footage for the editing floor. We ensure zero data loss and maximum efficiency, so the creative team can jump straight into the magic without technical delays.</p>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="process-card fade-up" data-step="07">
+          <div class="card-border-glow"></div>
+          <div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>
+          <div class="step-badge">Phase 07</div>
+          <h3>High-Octane Editing</h3>
+          <p>Our editing team takes over. We cut, color grade, add effects, kinetic typography, music, and sound design. Everything needed to turn raw footage into high-octane, scroll-stopping content that captures attention.</p>
+        </div>
+
+        <!-- Step 8 -->
+        <div class="process-card fade-up" data-step="08">
+          <div class="card-border-glow"></div>
+          <div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>
+          <div class="step-badge">Phase 08</div>
+          <h3>Refinement & Finalization</h3>
+          <p>You get to review everything. We collaborate on any changes you want until you're 100% happy. We don't stop until the content perfectly matches your vision and our high standards of quality.</p>
+        </div>
+
+        <!-- Step 9 -->
+        <div class="process-card fade-up" data-step="09">
+          <div class="card-border-glow"></div>
+          <div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>
+          <div class="step-badge">Phase 09</div>
+          <h3>Management & Upload</h3>
+          <p>We take the full headache off your plate. We don't just make content — we upload it, manage your schedule, optimize captions/hashtags, and handle your entire social presence. You focus on your business, we handle the engine.</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 3D Tilt Effect
+      const cards = document.querySelectorAll('.process-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = (y - centerY) / 10;
+          const rotateY = (centerX - x) / 10;
+          
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+        });
+      });
+    </script>
+
+    <!-- Options Section -->
+    <section class="section fade-up" style="margin: 6rem 0 10rem; text-align: center;">
+      <div class="container" style="max-width: 1000px; padding: 4rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; position: relative; overflow: hidden;">
+        <div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>
+        <h2 style="font-size: 3.5rem; margin-bottom: 3.5rem;">Choose Your Next <span class="highlight">Option</span></h2>
+        <p style="margin-bottom: 4rem; font-size: 1.2rem;">You've seen the engineering behind the velocity. Select your path towards digital dominance.</p>
+        
+        <div class="options-grid" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 2.5rem;">
+          <a href="index.html#client-reviews" class="btn" style="min-width: 280px; padding: 1.8rem 2rem; border-radius: 12px; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; text-align: center;">
+             Client Reviews
+          </a>
+          <a href="portfolio.html" class="btn btn-primary" style="min-width: 280px; padding: 1.8rem 2rem; border-radius: 12px; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; text-align: center;">
+             Portfolio
+          </a>
+          <a href="contact.html" class="btn" style="min-width: 280px; padding: 1.8rem 2rem; border-radius: 12px; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; text-align: center;">
+             Book a free meeting call
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 Digital Dustak. All rights reserved. Designed for Viral Velocity.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>

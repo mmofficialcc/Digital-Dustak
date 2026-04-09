@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services | Digital Dustak</title>
+  <meta name="description" content="Detailed breakdown of our video marketing services: Talking Heads, Faceless Content, and VSLs.">
+  <link rel="stylesheet" href="styles/index.css">
+  <style>
+    .page-header {
+      padding: 150px 0 80px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    }
+    
+    .service-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      margin-bottom: 6rem;
+    }
+
+    @media (min-width: 768px) {
+      .service-detail {
+        flex-direction: row;
+        align-items: center;
+      }
+      .service-detail:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+    }
+
+    .service-text {
+      flex: 1;
+    }
+
+    .service-image {
+      flex: 1;
+      border-radius: 16px;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255,255,255,0.05);
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-vortex"></div>
+  <canvas id="dust-canvas"></canvas>
+  
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo" style="display: flex; align-items: center;">
+        <img src="assets/Digital%20Dustak%20Logo%20png.png" alt="Digital Dustak Logo" style="height: 48px; width: auto; max-width: 250px; object-fit: contain;">
+      </a>
+      <button class="mobile-menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="process.html">Process</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem;">Book a Call</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header fade-up">
+    <div class="container">
+      <h1 style="font-size: 3.5rem;">Our <span class="highlight">Services</span></h1>
+      <p style="max-width: 600px; margin: 0 auto; font-size: 1.25rem;">We don't just edit videos. We engineer high-performance creative assets designed to maximize engagement, minimize CPA, and scale your revenue.</p>
+    </div>
+  </header>
+
+  <!-- Services Breakdown -->
+  <section class="section">
+    <div class="container">
+      
+      <!-- Talking Head -->
+      <div class="service-detail fade-up">
+        <div class="service-text">
+          <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Talking Head <span class="highlight">Authority</span></h2>
+          <p>The fastest way to build trust is to look your customer in the eye. Our Talking Head approach takes the burden off your shoulders. We handle everything from high-converting scripts based on behavioral psychology to the final premium edit.</p>
+          <ul style="list-style: none; margin-bottom: 2rem;">
+            <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Professional hook scripting</li>
+            <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Elite color grading & audio engineering</li>
+            <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Seamless B-roll & dynamic captions</li>
+          </ul>
+        </div>
+        <div class="service-image" style="background: url('assets/podcast_video.png') center/cover; position: relative;">
+            <div style="position:absolute; inset:0; background:rgba(31,31,31,0.4); border-radius:16px;"></div>
+        </div>
+      </div>
+
+      <!-- Faceless -->
+      <div class="service-detail fade-up">
+        <div class="service-text">
+          <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Faceless <span class="highlight">Scale</span></h2>
+          <p>Don't want to be on camera? No problem. We utilize highly dynamic stock footage, advanced motion graphics, and kinetic typography to build assets that capture attention entirely on the strength of the narrative.</p>
+          <ul style="list-style: none; margin-bottom: 2rem;">
+            <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> High-retention editing style</li>
+            <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Viral sound design & pacing</li>
+            <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Infinite scalability</li>
+          </ul>
+        </div>
+        <div class="service-image" style="background: url('assets/city_video.png') center/cover; position: relative;">
+            <div style="position:absolute; inset:0; background:rgba(31,31,31,0.4); border-radius:16px;"></div>
+        </div>
+      </div>
+
+      <!-- VSLs -->
+      <div class="service-detail fade-up" style="margin-bottom: 0;">
+        <div class="service-text">
+          <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Video Sales <span class="highlight">Letters</span></h2>
+          <p>The ultimate ROI machine. A great VSL is your most valuable asset, selling your product perfectly 24/7. We apply direct-response methodology to every frame, ensuring your viewer is compelled to act right now.</p>
+          <ul style="list-style: none;">
+            <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Offer positioning & angle creation</li>
+            <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Direct-response copywriting</li>
+            <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Conversion-optimized delivery</li>
+          </ul>
+        </div>
+        <div class="service-image" style="background: var(--bg-secondary); box-shadow: inset 0 0 50px rgba(0,0,0,0.5);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA Section shared -->
+  <section class="section" style="background: linear-gradient(135deg, var(--bg-secondary) 0%, #1a1a1a 100%); text-align: center; border-top: 1px solid rgba(245, 124, 44, 0.2);">
+    <div class="container fade-up">
+      <h2 style="font-size: 3.5rem; margin-bottom: 1.5rem;">Dominate Your <span class="highlight">Market</span></h2>
+      <a href="contact.html" class="btn btn-primary" style="padding: 1.25rem 3rem; font-size: 1.125rem;">Start The Strategy Now</a>
+      <div style="margin-top: 3rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+        <a href="https://wa.me/923115511620" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: #25D366; font-weight: 500; font-size: 0.95rem;">
+          <img src="assets/contact%20icon/whatsapp-icon-seeklogo.png" alt="WhatsApp" style="width: 20px; height: 20px; object-fit: contain;">
+          +923115511620
+        </a>
+        <a href="mailto:admin@digitaldustak.com" style="display: flex; align-items: center; gap: 0.5rem; color: #EA4335; font-weight: 500; font-size: 0.95rem;">
+          <img src="assets/contact%20icon/gmail-new-2020-seeklogo.png" alt="Email" style="width: 20px; height: 20px; object-fit: contain;">
+          admin@digitaldustak.com
+        </a>
+        <a href="https://www.upwork.com/freelancers/mmedtzz?mp_source=share" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: #14A800; font-weight: 500; font-size: 0.95rem;">
+          <img src="assets/contact%20icon/upwork-seeklogo.png" alt="Upwork" style="width: 20px; height: 20px; object-fit: contain;">
+          Upwork
+        </a>
+        <a href="https://www.instagram.com/digitaldustak?igsh=M2N2bTNzMnhrN3Jh" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: #E1306C; font-weight: 500; font-size: 0.95rem;">
+          <img src="assets/contact%20icon/instagram-new-2016-seeklogo.png" alt="Instagram" style="width: 20px; height: 20px; object-fit: contain;">
+          Instagram
+        </a>
+        <a href="https://www.linkedin.com/in/mmedtzzcc/" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: #0A66C2; font-weight: 500; font-size: 0.95rem;">
+          <img src="assets/contact%20icon/linked-in-linkedin-seeklogo.png" alt="LinkedIn" style="width: 20px; height: 20px; object-fit: contain;">
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="index.html" class="logo" style="display: flex; align-items: center;">
+        <img src="assets/Digital%20Dustak%20Logo%20png.png" alt="Digital Dustak Logo" style="height: 48px; width: auto; max-width: 250px; object-fit: contain;">
+      </a>
+          <p>Building high-converting video assets for brands that are ready to scale with extreme velocity.</p>
+        </div>
+        <div class="footer-bottom" style="margin-top: 2rem; border-top: none; padding-top: 0; text-align: left; width: 100%;">
+          <ul class="nav-links" style="gap: 1.5rem; justify-content: flex-start; margin-bottom: 1rem;">
+             <li><a href="index.html">Home</a></li>
+             <li><a href="services.html" class="active">Services</a></li>
+             <li><a href="portfolio.html">Portfolio</a></li>
+             <li><a href="about.html">About</a></li>
+             <li><a href="contact.html">Contact</a></li>
+          </ul>
+          <p>&copy; 2026 Digital Dustak. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>

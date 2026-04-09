@@ -1,0 +1,22 @@
+# Large Media Folders
+Portfolio/
+media/
+CEO/
+
+# Large binaries and videos
+*.mp4
+*.mkv
+*.mov
+*.wav
+*.mp3
+
+# Images (optional, but keep them if they are small)
+# assets/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Idea/Editor files
+.vscode/
+.idea/

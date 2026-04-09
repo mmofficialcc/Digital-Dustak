@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Digital Dustak</title>
+  <meta name="description" content="We are your strategic growth partner. Confident, modern, and results-driven video marketing.">
+  <link rel="stylesheet" href="styles/index.css">
+  <style>
+    .page-header {
+      padding: 150px 0 80px;
+      text-align: center;
+      background: url('assets/hero_bg.png') no-repeat center center/cover;
+      position: relative;
+    }
+    
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(180deg, rgba(31,31,31,0.8) 0%, rgba(31,31,31,1) 100%);
+      z-index: 1;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .manifesto-box {
+      background: var(--bg-secondary);
+      padding: 3rem;
+      border-radius: 16px;
+      border-left: 4px solid var(--accent-color);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-vortex"></div>
+  <canvas id="dust-canvas"></canvas>
+  
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo" style="display: flex; align-items: center;">
+        <img src="assets/Digital%20Dustak%20Logo%20png.png" alt="Digital Dustak Logo" style="height: 48px; width: auto; max-width: 250px; object-fit: contain;">
+      </a>
+      <button class="mobile-menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="process.html">Process</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem;">Book a Call</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header text-center">
+    <div class="container">
+      <div class="header-content fade-up">
+        <h1 style="font-size: 3.5rem;">We Are Your <span class="highlight">Growth Partner</span></h1>
+        <p style="max-width: 700px; margin: 0 auto; font-size: 1.25rem;">We exist to eliminate the friction between your brand and your market. No fluff, no vanity metrics. Just pure, measurable growth.</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="fade-up">
+          <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Why Digital Dustak?</h2>
+          <p>The landscape of attention is shifting rapidly. Most agencies are still selling outdated retainers focused on "brand awareness" and arbitrary engagement numbers. We look solely at the bottom line.</p>
+          <p>We believe that every piece of content should have a job. Its job is to capture attention, build unrelenting desire, and convert a viewer into a buyer. We are a collective of strategists, copywriters, and elite editors operating at the bleeding edge of direct-response marketing.</p>
+          <p style="font-weight: 600; color: #fff; margin-top: 2rem;">If you are ready for aggressive, predictable scale, you are in the right place.</p>
+        </div>
+        <div class="manifesto-box fade-up">
+          <h3 style="margin-bottom: 1.5rem; color: var(--accent-color);">Our Manifesto</h3>
+          <p>1. Data over opinions.</p>
+          <p>2. Conversion over vanity metrics.</p>
+          <p>3. Speed without sacrificing premium quality.</p>
+          <p>4. Strategic alignment with your revenue goals.</p>
+          <p>5. Extreme Ownership of your brand vision.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet the Founder Section -->
+  <section class="section founder-section">
+    <div class="container fade-up">
+      <div class="founder-grid">
+        <div class="founder-image" id="founder-3d">
+          <div class="hud-corner tl"></div><div class="hud-corner tr"></div>
+          <div class="hud-corner bl"></div><div class="hud-corner br"></div>
+          <div class="rec-dot"><span>REC</span></div>
+          <div class="founder-aura"></div>
+          <div class="founder-ring ring-1"></div>
+          <div class="founder-ring ring-2"></div>
+          <div class="founder-ring ring-3"></div>
+          <div class="vortex-icon icon-1"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="vortex-icon icon-2"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="vortex-icon icon-3"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="vortex-icon icon-4"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <img src="CEO/Muhammad%20Mohsin.jpeg" alt="Muhammad Mohsin - Founder of Digital Dustak">
+          <div class="founder-glow"></div>
+        </div>
+        <div class="founder-content">
+          <span class="founder-badge">Meet the Visionary</span>
+          <h2 class="founder-name">Muhammad <span class="highlight">Mohsin</span></h2>
+          <p class="founder-title">Founder of Digital Dustak</p>
+          <div class="founder-quote">
+            <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C14.9124 8 14.017 7.10457 14.017 6V3L14.017 3H21.017V15C21.017 18.3137 18.3307 21 15.017 21H14.017ZM3.01697 21L3.01697 18C3.01697 16.8954 3.9124 16 5.01697 16H8.01697C8.56925 16 9.01697 15.5523 9.01697 15V9C9.01697 8.44772 8.56925 8 8.01697 8H5.01697C3.9124 8 3.01697 7.10457 3.01697 6V3L3.01697 3H10.017V15C10.017 18.3137 7.33068 21 4.01697 21H3.01697Z"/></svg>
+            <blockquote>"Do you have a Vision? Let's bring it into Reality"</blockquote>
+          </div>
+          <a href="contact.html" class="btn btn-primary">Work with Digital Dustak</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container text-center">
+      <a href="index.html" class="logo" style="justify-content: center; margin-bottom: 1rem;">Digital<span>Dustak</span></a>
+      <p style="margin-bottom: 2rem;">&copy; 2026 Digital Dustak. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>

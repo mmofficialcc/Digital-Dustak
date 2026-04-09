@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Dustak | High-Converting Video Marketing Agency</title>
+  <meta name="description" content="We help brands get millions of views. Digital Dustak creates all forms of videos — designed to go viral.">
+  <link rel="stylesheet" href="styles/index.css">
+  <style>
+    /* Homepage Specific Styles */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      overflow: hidden;
+      background: url('assets/hero_bg.png') no-repeat center center/cover;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(180deg, rgba(31,31,31,0.7) 0%, rgba(31,31,31,1) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .social-proof {
+      background: var(--bg-secondary);
+      padding: 3rem 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .stats-grid {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+
+    @keyframes stat-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes number-glow {
+      0%, 100% { text-shadow: 0 0 5px rgba(245, 124, 44, 0.4); }
+      50% { text-shadow: 0 0 20px rgba(245, 124, 44, 0.8), 0 0 30px rgba(245, 124, 44, 0.4); }
+    }
+
+    .stat-item {
+      text-align: center;
+      animation: stat-float 4s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.4s);
+    }
+
+    .stat-number {
+      display: block;
+      font-size: 3rem; /* Slightly larger for impact */
+      font-weight: 800;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+      animation: number-glow 3s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.4s);
+    }
+
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 3rem;
+      position: relative;
+    }
+
+    .process-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      background: var(--bg-secondary);
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .process-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: rgba(245, 124, 44, 0.2);
+      line-height: 1;
+    }
+
+    @media (min-width: 768px) {
+      .process-steps {
+        flex-direction: row;
+      }
+      .process-step {
+        flex-direction: column;
+        flex: 1;
+        text-align: center;
+        align-items: center;
+      }
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .portfolio-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: var(--transition);
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(31,31,31,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .play-btn {
+      width: 60px;
+      height: 60px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px var(--accent-glow);
+      transform: scale(0.9);
+      transition: var(--transition);
+      color: white;
+    }
+
+    .play-btn svg { width: 24px; height: 24px; margin-left: 4px; }
+
+    .portfolio-item:hover {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 30px var(--accent-glow);
+    }
+
+    .portfolio-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      background: rgba(31,31,31,0.3);
+    }
+
+    .portfolio-item:hover .play-btn {
+      transform: scale(1);
+      box-shadow: 0 0 30px rgba(245, 124, 44, 0.8);
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, #1a1a1a 100%);
+      text-align: center;
+      padding: 6rem 0;
+      border-top: 1px solid rgba(245, 124, 44, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-vortex"></div>
+  <canvas id="dust-canvas"></canvas>
+  
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo" style="display: flex; align-items: center;">
+        <img src="assets/Digital%20Dustak%20Logo%20png.png" alt="Digital Dustak Logo" style="height: 48px; width: auto; max-width: 250px; object-fit: contain;">
+      </a>
+      <button class="mobile-menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="process.html">Process</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem;">Book a Call</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero text-center">
+    <div class="container">
+      <div class="hero-content fade-up">
+        <h1>We Help Brands Get <span class="highlight">Millions of Views</span></h1>
+        <p style="font-size: 1.25rem; font-weight: 300; max-width: 600px; margin: 0 auto 2.5rem;">
+          We create all forms of videos — designed to go viral.
+        </p>
+        <a href="process.html" class="btn btn-primary" style="padding: 1.25rem 2.5rem; font-size: 1.125rem;">See how we do it</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro Video Section -->
+  <section class="section" id="intro-video-section" style="padding: 4rem 0; background: var(--bg-primary);">
+    <div class="hero-content text-center">
+
+        <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.02em;">Want to know more <span class="highlight">about me?</span></h2>
+        <p style="margin-bottom: 2rem;">Click below to watch my introduction and see how I can scale your brand.</p>
+        
+        <div class="main-intro-wrapper" id="custom-video-wrapper">
+          <video id="main-intro-video" width="100%" preload="metadata" poster="assets/learn-more.jpg" style="display: block; object-fit: cover; width: 100%; height: 100%;">
+            <source src="media/my%20intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          
+          <div id="video-play-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(31,31,31,0.6); transition: opacity 0.4s ease;">
+            <div class="play-btn" style="transform: scale(1.5);">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3v18l15-9L5 3z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="social-proof">
+    <div class="container fade-up">
+      <div class="stats-grid">
+        <div class="stat-item" style="--i: 1;">
+          <span class="stat-number" data-target="50" data-suffix="M+">0</span>
+          <span class="text-gray">Views Generated</span>
+        </div>
+        <div class="stat-item" style="--i: 2;">
+          <span class="stat-number" data-target="2" data-prefix="$" data-suffix="M+">0</span>
+          <span class="text-gray">Client Revenue</span>
+        </div>
+        <div class="stat-item" style="--i: 3;">
+          <span class="stat-number" data-target="150" data-suffix="+">0</span>
+          <span class="text-gray">Brands Scaled</span>
+        </div>
+        <div class="stat-item" style="--i: 4;">
+          <span class="stat-number" data-target="3" data-suffix="x">0</span>
+          <span class="text-gray">Avg. ROAS Increase</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section">
+    <div class="container fade-up">
+      <div class="text-center" style="max-width: 600px; margin: 0 auto;">
+        <h2>Services Built For <span class="highlight">Conversion</span></h2>
+        <p>Stop wasting money on videos that just look pretty. We engineer content scientifically designed to grab attention and drive action.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card fade-up">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 6.5a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0Z"/><path d="M21 21.5v-1a5.5 5.5 0 0 0-5.5-5.5h-7A5.5 5.5 0 0 0 3 20.5v1"/></svg>
+          </div>
+          <h3>Talking Head Videos</h3>
+          <p>Build trust and authority instantly. We script, produce, and edit hyper-engaging talking head content that positions you as the singular expert in your niche.</p>
+          <div style="margin-top: auto; padding-top: 1.5rem;">
+            <a href="services.html" style="color: var(--accent-color); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+              Learn More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="card fade-up">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+          </div>
+          <h3>Faceless Content</h3>
+          <p>Scale attention without being on camera. Premium stock, kinetic typography, and gripping narratives that hook audiences in the first 3 seconds.</p>
+          <div style="margin-top: auto; padding-top: 1.5rem;">
+            <a href="services.html" style="color: var(--accent-color); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+              Learn More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="card fade-up">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
+          </div>
+          <h3>VSL Production</h3>
+          <p>Your 24/7 digital salesperson. We craft Video Sales Letters using proven psychological frameworks that turn cold traffic into paying customers predictably.</p>
+          <div style="margin-top: auto; padding-top: 1.5rem;">
+            <a href="services.html" style="color: var(--accent-color); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+              Learn More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="section" style="background: var(--bg-secondary);">
+    <div class="container fade-up">
+      <div class="text-center" style="max-width: 600px; margin: 0 auto;">
+        <h2>The <span class="highlight">9-Step</span> Viral Architecture</h2>
+        <p>A systematic methodology built to turn zero attention into predictable, scalable revenue. <a href="process.html" class="highlight" style="font-weight: 600;">Explore the full roadmap &rarr;</a></p>
+      </div>
+
+      <div class="process-steps">
+        <div class="process-step fade-up">
+          <div class="process-number">01</div>
+          <div class="process-content">
+            <h3>Strategy & Research</h3>
+            <p>We deep dive into your market, analyze competitors, and map out a bespoke video strategy that directly addresses your audience's biggest pain points.</p>
+          </div>
+        </div>
+        <div class="process-step fade-up">
+          <div class="process-number">02</div>
+          <div class="process-content">
+            <h3>Creative Production</h3>
+            <p>From high-converting scripts to premium editing. We handle the entire end-to-end production process to ensure your brand looks strictly top-tier.</p>
+          </div>
+        </div>
+        <div class="process-step fade-up">
+          <div class="process-number">03</div>
+          <div class="process-content">
+            <h3>Testing & Scale</h3>
+            <p>We don't just hand over videos. We analyze the data, optimize the hooks, and rigorously test variations until we find the winning creative that scales profitably.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Client Reviews Section -->
+  <section class="section" id="client-reviews" style="background: var(--bg-secondary);">
+    <div class="container fade-up">
+      <div class="text-center" style="max-width: 800px; margin: 0 auto 4rem;">
+        <h2 style="font-size: 3.5rem;">What Our <span class="highlight">Clients</span> Say</h2>
+        <p style="color: var(--text-gray); font-size: 1.25rem;">Real people. Real growth. Real results.</p>
+      </div>
+
+      <div class="reviews-content">
+        <!-- Videos without names -->
+        <div class="vertical-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; max-width: 1100px; margin: 0 auto 6rem;">
+          <div class="portfolio-item vertical fade-up">
+            <video preload="metadata" poster="assets/Testimonial video/Dine mari.jpg" src="assets/Testimonial video/Dine Mari.mp4"></video>
+            <div class="portfolio-overlay"><div class="play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3v18l15-9L5 3z"/></svg></div></div>
+          </div>
+          <div class="portfolio-item vertical fade-up">
+            <video preload="metadata" poster="assets/Testimonial video/Dr sara.jpg" src="assets/Testimonial video/Dr sara.mp4"></video>
+            <div class="portfolio-overlay"><div class="play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3v18l15-9L5 3z"/></svg></div></div>
+          </div>
+        </div>
+
+        <!-- Animated Screenshot Gallery (Infinite Scrolling Marquee) -->
+        <div class="screenshot-marquee-container fade-up">
+          <div class="screenshot-marquee">
+            <div class="marquee-group">
+                <img src="assets/Client Review/WhatsApp Image 2026-04-06 at 6.35.09 PM.jpeg" alt="Review 1">
+                <img src="assets/Client Review/WhatsApp Image 2026-04-06 at 6.36.54 PM.jpeg" alt="Review 2">
+                <img src="assets/Client Review/WhatsApp Image 2026-04-06 at 6.37.29 PM.jpeg" alt="Review 3">
+                <img src="assets/Client Review/WhatsApp Image 2026-04-06 at 6.37.49 PM.jpeg" alt="Review 4">
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="marquee-group">
+                <img src="assets/Client Review/WhatsApp Image 2026-04-06 at 6.35.09 PM.jpeg" alt="Review 1">
+                <img src="assets/Client Review/WhatsApp Image 2026-04-06 at 6.36.54 PM.jpeg" alt="Review 2">
+                <img src="assets/Client Review/WhatsApp Image 2026-04-06 at 6.37.29 PM.jpeg" alt="Review 3">
+                <img src="assets/Client Review/WhatsApp Image 2026-04-06 at 6.37.49 PM.jpeg" alt="Review 4">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Meet the Founder Section -->
+  <section class="section founder-section">
+    <div class="container fade-up">
+      <div class="founder-grid">
+        <div class="founder-image" id="founder-3d">
+          <div class="hud-corner tl"></div><div class="hud-corner tr"></div>
+          <div class="hud-corner bl"></div><div class="hud-corner br"></div>
+          <div class="rec-dot"><span>REC</span></div>
+          <div class="founder-aura"></div>
+          <div class="founder-ring ring-1"></div>
+          <div class="founder-ring ring-2"></div>
+          <div class="founder-ring ring-3"></div>
+          <div class="vortex-icon icon-1"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="vortex-icon icon-2"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="vortex-icon icon-3"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="vortex-icon icon-4"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <img src="CEO/Muhammad%20Mohsin.jpeg" alt="Muhammad Mohsin - Founder of Digital Dustak">
+          <div class="founder-glow"></div>
+        </div>
+        <div class="founder-content">
+          <span class="founder-badge">Meet the Visionary</span>
+          <h2 class="founder-name">Muhammad <span class="highlight">Mohsin</span></h2>
+          <p class="founder-title">Founder of Digital Dustak</p>
+          <div class="founder-quote">
+            <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C14.9124 8 14.017 7.10457 14.017 6V3L14.017 3H21.017V15C21.017 18.3137 18.3307 21 15.017 21H14.017ZM3.01697 21L3.01697 18C3.01697 16.8954 3.9124 16 5.01697 16H8.01697C8.56925 16 9.01697 15.5523 9.01697 15V9C9.01697 8.44772 8.56925 8 8.01697 8H5.01697C3.9124 8 3.01697 7.10457 3.01697 6V3L3.01697 3H10.017V15C10.017 18.3137 7.33068 21 4.01697 21H3.01697Z"/></svg>
+            <blockquote>"Do you have a Vision? Let's bring it into Reality"</blockquote>
+          </div>
+          <a href="contact.html" class="btn btn-primary glitch-active">Let's Build Your Vision</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container fade-up">
+      <h2 style="font-size: 3.5rem; margin-bottom: 1.5rem;">Ready to <span class="highlight">Scale</span> With Video?</h2>
+      <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto 2.5rem;">Stop leaving money on the table. Partner with us to build a perpetual video engine that prints revenue.</p>
+      <a href="contact.html" class="btn btn-primary" style="padding: 1.25rem 3rem; font-size: 1.125rem;">Let's Talk Strategy</a>
+      <div style="margin-top: 3rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+        <a href="https://wa.me/923115511620" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: #25D366; font-weight: 500; font-size: 0.95rem;">
+          <img src="assets/contact%20icon/whatsapp-icon-seeklogo.png" alt="WhatsApp" style="width: 20px; height: 20px; object-fit: contain;">
+          +923115511620
+        </a>
+        <a href="mailto:admin@digitaldustak.com" style="display: flex; align-items: center; gap: 0.5rem; color: #EA4335; font-weight: 500; font-size: 0.95rem;">
+          <img src="assets/contact%20icon/gmail-new-2020-seeklogo.png" alt="Email" style="width: 20px; height: 20px; object-fit: contain;">
+          admin@digitaldustak.com
+        </a>
+        <a href="https://www.upwork.com/freelancers/mmedtzz?mp_source=share" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: #14A800; font-weight: 500; font-size: 0.95rem;">
+          <img src="assets/contact%20icon/upwork-seeklogo.png" alt="Upwork" style="width: 20px; height: 20px; object-fit: contain;">
+          Upwork
+        </a>
+        <a href="https://www.instagram.com/digitaldustak?igsh=M2N2bTNzMnhrN3Jh" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: #E1306C; font-weight: 500; font-size: 0.95rem;">
+          <img src="assets/contact%20icon/instagram-new-2016-seeklogo.png" alt="Instagram" style="width: 20px; height: 20px; object-fit: contain;">
+          Instagram
+        </a>
+        <a href="https://www.linkedin.com/in/mmedtzzcc/" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: #0A66C2; font-weight: 500; font-size: 0.95rem;">
+          <img src="assets/contact%20icon/linked-in-linkedin-seeklogo.png" alt="LinkedIn" style="width: 20px; height: 20px; object-fit: contain;">
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="index.html" class="logo" style="display: flex; align-items: center;">
+        <img src="assets/Digital%20Dustak%20Logo%20png.png" alt="Digital Dustak Logo" style="height: 48px; width: auto; max-width: 250px; object-fit: contain;">
+      </a>
+          <p>Building high-converting video assets for brands that are ready to scale with extreme velocity.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">Talking Heads</a></li>
+            <li><a href="services.html">Faceless Content</a></li>
+            <li><a href="services.html">Video Sales Letters</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Contact & Socials</h4>
+          <ul>
+            <li><a href="contact.html">Book a Call</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Twitter/X</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Digital Dustak. All rights reserved. Designed for Growth.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>
