@@ -405,32 +405,39 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(animate);
         }
 
-    // Background Vortex Interaction
+    // Background Vortex Interaction - Optimized with RAF throttling
     const bgVortex = document.querySelector('.bg-vortex');
     let scrollPos = window.pageYOffset;
     let vortexScale = 1;
     let vortexOpacity = 0.05;
+    let ticking = false;
 
     window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        const scrollDelta = Math.abs(currentScroll - scrollPos);
-        
-        // Pulse on high speed scroll
-        if (scrollDelta > 20) {
-            vortexScale = 1.05;
-            vortexOpacity = 0.1;
-        } else {
-            vortexScale = 1;
-            vortexOpacity = 0.05;
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const currentScroll = window.pageYOffset;
+                const scrollDelta = Math.abs(currentScroll - scrollPos);
+                
+                // Pulse on high speed scroll
+                if (scrollDelta > 20) {
+                    vortexScale = 1.05;
+                    vortexOpacity = 0.1;
+                } else {
+                    vortexScale = 1;
+                    vortexOpacity = 0.05;
+                }
+                
+                if (bgVortex) {
+                    bgVortex.style.setProperty('--vortex-scale', vortexScale);
+                    bgVortex.style.setProperty('--vortex-opacity', vortexOpacity);
+                    bgVortex.style.setProperty('--vortex-speed', (20 - Math.min(scrollDelta * 0.1, 15)) + 's');
+                }
+                
+                scrollPos = currentScroll;
+                ticking = false;
+            });
+            ticking = true;
         }
-        
-        if (bgVortex) {
-            bgVortex.style.setProperty('--vortex-scale', vortexScale);
-            bgVortex.style.setProperty('--vortex-opacity', vortexOpacity);
-            bgVortex.style.setProperty('--vortex-speed', (20 - Math.min(scrollDelta * 0.1, 15)) + 's');
-        }
-        
-        scrollPos = currentScroll;
     });
 
     // Pulse on click

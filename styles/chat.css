@@ -26,6 +26,7 @@
     overflow: visible;
     /* 3D Floating Animation */
     animation: floating-3d 4s ease-in-out infinite;
+    will-change: transform; /* GPU Hint for smooth 3D motion */
 }
 
 #chat-launcher img {
