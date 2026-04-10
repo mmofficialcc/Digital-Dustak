@@ -909,8 +909,8 @@ input:focus, textarea:focus {
   background: linear-gradient(135deg, rgba(42, 42, 42, 0.4) 0%, transparent 100%);
   position: relative;
   overflow: hidden;
-  content-visibility: auto;
-  contain-intrinsic-size: 0 500px;
+  
+  
 }
 
 .founder-grid {
