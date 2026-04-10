@@ -591,7 +591,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Greetings to cycle through when paused
     const greetings = [
-        "Hi! I'm Jahanzeb Baloch.<br>How can I help you?",
+        "Hi! I'm your Digital Dustak Agent.<br>How can I help you?",
         "Ready to scale your brand? Let's talk.",
         "Need a viral hit? I'm your agent.",
         "Main aapki madad kaise kar sakta hoon?",
