@@ -584,5 +584,96 @@ document.addEventListener('DOMContentLoaded', () => {
     chatInput?.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') handleSendMessage();
     });
-}
+
+    // ── Autonomous Wandering Logic ─────────────────────────────────────────
+    const chatContainer = document.getElementById('celestial-chat-container');
+    const speechBubble = document.getElementById('chat-speech-bubble');
+    
+    // Greetings to cycle through when paused
+    const greetings = [
+        "Hi! I'm Jahanzeb Baloch.<br>How can I help you?",
+        "Ready to scale your brand? Let's talk.",
+        "Need a viral hit? I'm your agent.",
+        "Main aapki madad kaise kar sakta hoon?",
+        "Explore our portfolio to see real results."
+    ];
+
+    if (chatContainer && chatLauncher) {
+        let isWandering = true;
+        
+        // Stop wandering if chat is open to avoid annoyances
+        chatLauncher.addEventListener('click', () => {
+            if (chatWindow?.classList.contains('active')) {
+                isWandering = false;
+                speechBubble?.classList.remove('show-bubble'); // hide bubble if chat opens
+            } else {
+                isWandering = true;
+                wanderLoop(); // resume
+            }
+        });
+
+        // Function to move to a random position in the bottom 40% of the screen
+        const moveRobot = () => {
+            if (!isWandering) return;
+            
+            // Safe bounds (respecting the 180px size)
+            const maxX = window.innerWidth - 200;
+            const minX = 20;
+            // Limit to bottom 40%
+            const maxY = window.innerHeight - 200;
+            const minY = window.innerHeight * 0.6; 
+
+            // Calculate new position
+            const randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+            const randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+
+            // Apply translation (hardware accelerated)
+            chatContainer.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        };
+
+        const showGreeting = () => {
+            if (!isWandering || !speechBubble) return;
+            
+            // Pick random greeting
+            const randomText = greetings[Math.floor(Math.random() * greetings.length)];
+            speechBubble.innerHTML = randomText;
+            
+            speechBubble.classList.add('show-bubble');
+            
+            // Hide after 4 seconds
+            setTimeout(() => {
+                speechBubble.classList.remove('show-bubble');
+            }, 4000);
+        };
+
+        const wanderLoop = () => {
+            if (!isWandering) return;
+            
+            moveRobot();
+            
+            // Wait for movement to finish (4s css transition), then maybe greet, then wait before next move
+            setTimeout(() => {
+                // 50% chance to greet when stopped
+                if (Math.random() > 0.5) showGreeting();
+                
+                // Wait while stopped (between 3 to 6 seconds)
+                const pauseTime = Math.floor(Math.random() * 3000) + 3000;
+                
+                setTimeout(() => {
+                    wanderLoop(); // Go again
+                }, pauseTime);
+                
+            }, 4000); // matches CSS transition time
+        };
+
+        // Start Initial Position (bottom right corner immediately without animation)
+        chatContainer.style.transition = 'none';
+        chatContainer.style.transform = `translate(${window.innerWidth - 200}px, ${window.innerHeight - 200}px)`;
+        
+        // Start Loop after a short delay
+        setTimeout(() => {
+            chatContainer.style.transition = 'transform 4s ease-in-out';
+            wanderLoop();
+        }, 1500);
+    }
 });

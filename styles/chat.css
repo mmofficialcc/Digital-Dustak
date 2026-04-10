@@ -9,56 +9,107 @@
 
 #celestial-chat-container {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    top: 0;
+    left: 0;
+    /* Move container off-screen initially to avoid flicker, JS will place it */
+    transform: translate(-500px, -500px); 
     z-index: 10000;
     font-family: 'Inter', sans-serif;
+    /* Smooth wandering movement using GPU */
+    transition: transform 4s ease-in-out;
+    pointer-events: none; /* Let clicks pass through the huge invisible container */
+}
+
+/* Re-enable pointer events for actual interactive children */
+#celestial-chat-container * {
+    pointer-events: auto;
 }
 
 /* Launcher Button (The Robot Mascot) */
 #chat-launcher {
-    width: 100px; /* Increased size */
-    height: 100px;
-    border-radius: 50%;
+    width: 180px; /* Much larger premium size */
+    height: 180px;
     cursor: pointer;
     position: relative;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     overflow: visible;
-    /* 3D Floating Animation */
-    animation: floating-3d 4s ease-in-out infinite;
-    will-change: transform; /* GPU Hint for smooth 3D motion */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
 #chat-launcher img {
-    width: 100%;
-    height: 100%;
+    width: 130%;
+    height: 130%;
     object-fit: contain;
-    /* Glow effect */
-    filter: drop-shadow(0 0 15px rgba(245, 124, 44, 0.4));
+    /* PERFECT BLENDING for pure black background */
+    mix-blend-mode: screen; 
+    /* Subtle breathing animation instead of aggressive floating */
+    animation: breathing 4s ease-in-out infinite;
+    will-change: transform;
+    filter: drop-shadow(0 0 10px rgba(245, 124, 44, 0.2));
 }
 
-@keyframes floating-3d {
-    0% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
-    50% { transform: translateY(-20px) rotateX(5deg) rotateY(15deg); }
-    100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+@keyframes breathing {
+    0% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.02) translateY(-5px); }
+    100% { transform: scale(1) translateY(0); }
 }
 
-#chat-launcher:hover {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 0 35px rgba(245, 124, 44, 0.5);
+#chat-launcher:hover img {
+    transform: scale(1.08) translateY(-10px);
+    filter: drop-shadow(0 0 20px rgba(245, 124, 44, 0.6));
+    animation-play-state: paused;
 }
 
-@keyframes bubble-pulse {
-    0% { transform: scale(1); opacity: 0.6; }
-    50% { transform: scale(1.15); opacity: 0.2; }
-    100% { transform: scale(1); opacity: 0.6; }
+/* Autonomous Speech Bubble */
+.chat-speech-bubble {
+    position: absolute;
+    top: -70px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px) scale(0.8);
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(245, 124, 44, 0.4);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(245, 124, 44, 0.2);
+    border-radius: 12px;
+    padding: 12px 18px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+    z-index: 100;
+}
+
+.chat-speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: rgba(20, 20, 20, 0.95);
+    border-right: 1px solid rgba(245, 124, 44, 0.4);
+    border-bottom: 1px solid rgba(245, 124, 44, 0.4);
+}
+
+.chat-speech-bubble.show-bubble {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
 }
 
 /* Chat Window */
 #chat-window {
     position: absolute;
-    bottom: 100px;
-    right: 0;
+    /* Fixed offset relative to the moving launcher */
+    bottom: 100%;
+    right: -100px; /* Offset to the left a bit so it doesn't clip off screen on right edge */
+    margin-bottom: 20px;
     width: 380px;
     height: 550px;
     background: var(--chat-bg);
