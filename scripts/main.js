@@ -1,25 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Door Opening Animation
-    if (!sessionStorage.getItem('doorOpened')) {
-        const doorOverlay = document.createElement('div');
-        doorOverlay.className = 'door-overlay';
-        doorOverlay.innerHTML = `
-            <div class="door door-left"></div>
-            <div class="door door-right"></div>
-            <div class="door-text">Digital<span>Dustak</span></div>
-        `;
-        document.body.appendChild(doorOverlay);
-        document.body.style.overflow = 'hidden'; // Stop scroll
+    // Door Opening Animation (Always show for now)
+    const doorOverlay = document.createElement('div');
+    doorOverlay.className = 'door-overlay';
+    doorOverlay.innerHTML = `
+        <div class="door door-left"></div>
+        <div class="door door-right"></div>
+        <div class="door-text">Digital<span>Dustak</span></div>
+    `;
+    document.body.appendChild(doorOverlay);
+    document.body.style.overflow = 'hidden'; // Stop scroll
 
+    setTimeout(() => {
+        doorOverlay.classList.add('open');
         setTimeout(() => {
-            doorOverlay.classList.add('open');
-            setTimeout(() => {
-                doorOverlay.remove();
-                document.body.style.overflow = '';
-                sessionStorage.setItem('doorOpened', 'true');
-            }, 1200); // allow transition
-        }, 1000); // initial wait time
-    }
+            doorOverlay.remove();
+            document.body.style.overflow = '';
+        }, 1200); // allow transition
+    }, 1000); // initial wait time
 
     // Mobile Navigation Toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
