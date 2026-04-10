@@ -124,28 +124,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Intro Video Logic
-    const videoWrapper = document.getElementById('custom-video-wrapper');
-    const introVideo = document.getElementById('main-intro-video');
-    const videoOverlay = document.getElementById('video-play-overlay');
-    const introPlayBtn = videoOverlay ? videoOverlay.querySelector('.play-btn') : null;
+    // ── Video Handling (YouTube Lazy-loading) ────────────────────────────────
+    function loadYouTubeVideo(container) {
+        if (container.classList.contains('active')) return;
+        
+        const videoId = container.dataset.youtubeId;
+        if (!videoId) return;
 
-    if (videoWrapper && introVideo && videoOverlay) {
-        videoWrapper.addEventListener('click', () => {
-            if (introVideo.paused) {
-                introVideo.play();
-                introVideo.setAttribute('controls', 'true');
-                videoOverlay.style.opacity = '0';
-                videoOverlay.style.pointerEvents = 'none';
-                if (introPlayBtn) introPlayBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
-            } else {
-                introVideo.pause();
-                videoOverlay.style.opacity = '1';
-                videoOverlay.style.pointerEvents = 'all';
-                if (introPlayBtn) introPlayBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
-            }
-        });
+        const iframe = document.createElement('iframe');
+        // Simple, robust embed URL
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&modestbranding=1`;
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', 'true');
+        // referrerPolicy can help with Error 153 in some local environments
+        iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        iframe.style.cssText = 'width:100%; height:100%; border:none;';
+        
+        container.innerHTML = '';
+        container.appendChild(iframe);
+        container.classList.add('active');
     }
+
+    // Initialize placeholders
+    document.querySelectorAll('.video-container').forEach(container => {
+        const videoId = container.dataset.youtubeId;
+        
+        if (videoId) {
+            const placeholder = container.querySelector('.video-placeholder');
+            if (placeholder) {
+                // Set background from YouTube if local one is missing or just for fallback
+                placeholder.style.backgroundImage = `url(https://img.youtube.com/vi/${videoId}/maxresdefault.jpg)`;
+            }
+        }
+        
+        container.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            loadYouTubeVideo(container);
+        });
+    });
+
 
     // ── Portfolio Lightbox Modal ──────────────────────────────────────────────
     // Build the modal once and reuse it
@@ -174,24 +192,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeModalVideo = null;
 
     function openModal(item) {
-        const video = item.querySelector('video');
-        const img   = item.querySelector('img');
+        const youtubeId = item.dataset.youtubeId;
+        const img       = item.querySelector('img');
         const isVertical = item.classList.contains('vertical');
-
-        // Stop any previously playing modal video
-        if (activeModalVideo) { activeModalVideo.pause(); activeModalVideo = null; }
 
         modalContent.innerHTML = '';
 
-        if (video) {
-            // Clone so we can control it independently
-            const clone = video.cloneNode(true);
-            clone.removeAttribute('preload');
-            clone.setAttribute('controls', 'true');
-            clone.style.cssText = 'width:100%;height:100%;display:block;object-fit:contain;border-radius:12px;';
-            modalContent.appendChild(clone);
-            activeModalVideo = clone;
-            clone.play().catch(() => {});
+        if (youtubeId) {
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1`;
+            iframe.style.cssText = 'width:100%;height:100%;border:none;border-radius:12px;';
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('allowfullscreen', 'true');
+            modalContent.appendChild(iframe);
         } else if (img) {
             const image = document.createElement('img');
             image.src = img.src;
@@ -199,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
             image.style.cssText = 'width:100%;height:100%;object-fit:contain;border-radius:12px;display:block;';
             modalContent.appendChild(image);
         }
+
 
         // Size the modal based on orientation
         if (isVertical) {

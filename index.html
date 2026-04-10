@@ -231,18 +231,13 @@
         <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.02em;">Want to know more <span class="highlight">about me?</span></h2>
         <p style="margin-bottom: 2rem;">Click below to watch my introduction and see how I can scale your brand.</p>
         
-        <div class="main-intro-wrapper" id="custom-video-wrapper">
-          <video id="main-intro-video" width="100%" preload="metadata" poster="assets/learn-more.jpg" style="display: block; object-fit: cover; width: 100%; height: 100%;">
-            <source src="media/my%20intro.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          
-          <div id="video-play-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(31,31,31,0.6); transition: opacity 0.4s ease;">
-            <div class="play-btn" style="transform: scale(1.5);">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3v18l15-9L5 3z"/></svg>
-            </div>
+        <div class="video-container main-intro-wrapper" id="custom-video-wrapper" data-youtube-id="Cwn-2Ie47S8">
+          <div class="video-placeholder" style="background-image: url('assets/learn-more.jpg');"></div>
+          <div class="youtube-play-btn" style="transform: translate(-50%, -50%) scale(1.5);">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -368,13 +363,19 @@
         <!-- Videos without names -->
         <div class="vertical-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; max-width: 1100px; margin: 0 auto 6rem;">
           <div class="portfolio-item vertical fade-up">
-            <video preload="metadata" poster="assets/Testimonial video/Dine mari.jpg" src="assets/Testimonial video/Dine Mari.mp4"></video>
-            <div class="portfolio-overlay"><div class="play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3v18l15-9L5 3z"/></svg></div></div>
+            <div class="video-container vertical" data-youtube-id="zh7gOXg0k-E">
+              <div class="video-placeholder" style="background-image: url('assets/Testimonial video/Dine mari.jpg');"></div>
+              <div class="youtube-play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+            </div>
           </div>
+
           <div class="portfolio-item vertical fade-up">
-            <video preload="metadata" poster="assets/Testimonial video/Dr sara.jpg" src="assets/Testimonial video/Dr sara.mp4"></video>
-            <div class="portfolio-overlay"><div class="play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3v18l15-9L5 3z"/></svg></div></div>
+            <div class="video-container vertical" data-youtube-id="GdcNesTXmE0">
+              <div class="video-placeholder" style="background-image: url('assets/Testimonial video/Dr sara.jpg');"></div>
+              <div class="youtube-play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+            </div>
           </div>
+
         </div>
 
         <!-- Animated Screenshot Gallery (Infinite Scrolling Marquee) -->
