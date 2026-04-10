@@ -491,5 +491,91 @@ document.addEventListener('DOMContentLoaded', () => {
     }, statsObserverOptions);
 
     statNumbers.forEach(stat => statsObserver.observe(stat));
+
+    // ── AI Celestial Agent Logic ───────────────────────────────────────────
+    const chatLauncher = document.getElementById('chat-launcher');
+    const chatWindow = document.getElementById('chat-window');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-msg-btn');
+    const chatMessages = document.getElementById('chat-messages');
+
+    // Message History for Claude
+    let chatHistory = [];
+
+    // Toggle Chat
+    chatLauncher?.addEventListener('click', () => {
+        chatWindow?.classList.toggle('active');
+        if (chatWindow?.classList.contains('active')) {
+            chatInput?.focus();
+        }
+    });
+
+    // Close chat if clicking outside
+    document.addEventListener('click', (e) => {
+        if (!chatLauncher?.contains(e.target) && !chatWindow?.contains(e.target)) {
+            chatWindow?.classList.remove('active');
+        }
+    });
+
+    const addMessage = (text, sender) => {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${sender}-message`;
+        msgDiv.textContent = text;
+        chatMessages?.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    const handleSendMessage = async () => {
+        const text = chatInput?.value.trim();
+        if (!text) return;
+
+        // Clear input
+        chatInput.value = '';
+        
+        // Add User Message
+        addMessage(text, 'user');
+        chatHistory.push({ role: 'user', content: text });
+
+        // Add Typing Indicator
+        const typingId = 'typing-' + Date.now();
+        const typingDiv = document.createElement('div');
+        typingDiv.id = typingId;
+        typingDiv.className = 'typing';
+        typingDiv.textContent = 'Agent is thinking...';
+        chatMessages?.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+            // Call our Netlify Function (The Secure Bridge)
+            const response = await fetch('/.netlify/functions/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ messages: chatHistory })
+            });
+
+            const data = await response.json();
+            
+            // Remove Typing Indicator
+            document.getElementById(typingId)?.remove();
+
+            if (data.text) {
+                addMessage(data.text, 'bot');
+                chatHistory.push({ role: 'assistant', content: data.text });
+            } else if (data.error) {
+                addMessage("I'm having a little trouble connecting. Please ensure the API Key is set in Netlify settings.", 'bot');
+                console.error('AI Error:', data.error);
+            }
+        } catch (error) {
+            document.getElementById(typingId)?.remove();
+            addMessage("Koshish karein ke internet theek ho, ya baad mein try karein.", 'bot');
+            console.error('Chat Error:', error);
+        }
+    };
+
+    // Event Listeners for sending
+    sendBtn?.addEventListener('click', handleSendMessage);
+    chatInput?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSendMessage();
+    });
 }
 });
