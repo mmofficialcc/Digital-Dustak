@@ -1,22 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Door Opening Animation (Always show for now)
-    const doorOverlay = document.createElement('div');
-    doorOverlay.className = 'door-overlay';
-    doorOverlay.innerHTML = `
-        <div class="door door-left"></div>
-        <div class="door door-right"></div>
-        <div class="door-text">Digital<span>Dustak</span></div>
-    `;
-    document.body.appendChild(doorOverlay);
-    document.body.style.overflow = 'hidden'; // Stop scroll
+    // Door Opening Animation
+    try {
+        if (!sessionStorage.getItem('doorOpened')) {
+            const doorOverlay = document.createElement('div');
+            doorOverlay.className = 'door-overlay';
+            doorOverlay.innerHTML = `
+                <div class="door door-left"></div>
+                <div class="door door-right"></div>
+                <div class="door-text">Digital<span>Dustak</span></div>
+            `;
+            document.body.appendChild(doorOverlay);
+            document.body.style.overflow = 'hidden'; // Stop scroll
 
-    setTimeout(() => {
-        doorOverlay.classList.add('open');
-        setTimeout(() => {
-            doorOverlay.remove();
-            document.body.style.overflow = '';
-        }, 1200); // allow transition
-    }, 1000); // initial wait time
+            setTimeout(() => {
+                doorOverlay.classList.add('open');
+                setTimeout(() => {
+                    if(document.body.contains(doorOverlay)) doorOverlay.remove();
+                    document.body.style.overflow = '';
+                    sessionStorage.setItem('doorOpened', 'true');
+                }, 1200);
+            }, 1000);
+        }
+    } catch (err) {
+        console.error("Gate Overlay Error:", err);
+        document.body.style.overflow = ''; // Failsafe unlock
+    }
 
     // Mobile Navigation Toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -29,23 +37,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Scroll Animations (Intersection Observer)
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.01 // Trigger as soon as a single pixel is visible
-    };
+    try {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.01 // Trigger as soon as a single pixel is visible
+        };
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
 
-    const animatedElements = document.querySelectorAll('.fade-up');
-    animatedElements.forEach(el => observer.observe(el));
+        const animatedElements = document.querySelectorAll('.fade-up');
+        animatedElements.forEach(el => observer.observe(el));
+        
+        // Failsafe: if an element is stuck for more than 5 seconds, force show it
+        setTimeout(() => {
+            animatedElements.forEach(el => el.classList.add('visible'));
+        }, 5000);
+    } catch (err) {
+        console.error("Observer Error", err);
+        document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+    }
 
     // High-Velocity HUD Arrow (Arrow Illusion)
     const cursorDot = document.createElement('div');
@@ -630,17 +648,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const showGreeting = () => {
             if (!isWandering || !speechBubble) return;
-            
-            // Pick random greeting
-            const randomText = greetings[Math.floor(Math.random() * greetings.length)];
-            speechBubble.innerHTML = randomText;
-            
-            speechBubble.classList.add('show-bubble');
-            
-            // Hide after 4 seconds
-            setTimeout(() => {
-                speechBubble.classList.remove('show-bubble');
-            }, 4000);
+            try {
+                const randomText = greetings[Math.floor(Math.random() * greetings.length)];
+                speechBubble.innerHTML = randomText;
+                speechBubble.classList.add('show-bubble');
+                setTimeout(() => {
+                    speechBubble.classList.remove('show-bubble');
+                }, 4000);
+            } catch(e) {}
         };
 
         const wanderLoop = () => {
