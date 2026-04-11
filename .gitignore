@@ -1,7 +1,6 @@
 # Large Media Folders
 Portfolio/
-media/
-CEO/
+# media/
 
 # Large binaries and videos
 *.mp4
