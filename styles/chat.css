@@ -9,15 +9,12 @@
 
 #celestial-chat-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    /* Move container off-screen initially to avoid flicker, JS will place it */
-    transform: translate(-500px, -500px); 
+    bottom: -60px;   /* Push down so legs go below screen edge */
+    right: 20px;
     z-index: 10000;
     font-family: 'Inter', sans-serif;
-    /* Smooth wandering movement using GPU */
-    transition: transform 4s ease-in-out;
-    pointer-events: none; /* Let clicks pass through the huge invisible container */
+    transition: none;
+    pointer-events: none;
 }
 
 /* Re-enable pointer events for actual interactive children */
@@ -27,15 +24,14 @@
 
 /* Launcher Button (The Robot Mascot) */
 #chat-launcher {
-    width: 180px; /* Much larger premium size */
-    height: 180px;
+    width: 180px;
+    height: 220px;   /* Taller so more robot body is visible */
     cursor: pointer;
     position: relative;
     overflow: visible;
     display: flex;
-    align-items: center;
+    align-items: flex-end;  /* Anchor to bottom so legs clip below */
     justify-content: center;
-    border-radius: 50%;
 }
 
 #chat-launcher img {

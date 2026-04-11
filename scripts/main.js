@@ -421,14 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Explore our portfolio to see real results."
         ];
 
-        // Fix agent at bottom-right corner — no wandering
-        const setPosition = () => {
-            chatContainer.style.left = `${window.innerWidth - 200}px`;
-            chatContainer.style.top  = `${window.innerHeight - 200}px`;
-        };
-        setPosition();
-        window.addEventListener('resize', setPosition);
-
+        // Position handled by CSS (bottom: -60px; right: 20px)
         // Show greeting bubble every 8 seconds
         const showGreeting = () => {
             if (!speechBubble || chatWindow?.classList.contains('active')) return;
