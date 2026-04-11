@@ -42,12 +42,11 @@
     width: 130%;
     height: 130%;
     object-fit: contain;
-    /* PERFECT BLENDING for pure black background */
-    mix-blend-mode: screen; 
-    /* Subtle breathing animation instead of aggressive floating */
+    /* White background PNG — no blend mode needed */
+    mix-blend-mode: normal;
     animation: breathing 4s ease-in-out infinite;
     will-change: transform;
-    filter: drop-shadow(0 0 10px rgba(245, 124, 44, 0.2));
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 15px rgba(245, 124, 44, 0.15));
 }
 
 @keyframes breathing {
