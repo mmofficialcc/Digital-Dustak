@@ -108,8 +108,8 @@
     bottom: 100%;
     right: -100px; /* Offset to the left a bit so it doesn't clip off screen on right edge */
     margin-bottom: 20px;
-    width: 380px;
-    height: 550px;
+    width: 320px;
+    height: 460px;
     background: var(--chat-bg);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(245, 124, 44, 0.2);
@@ -132,7 +132,7 @@
 
 /* Chat Header */
 .chat-header {
-    padding: 20px;
+    padding: 15px 20px;
     background: linear-gradient(90deg, #1a1a1d, #252528);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
@@ -176,7 +176,7 @@
 /* Chat Body */
 .chat-body {
     flex: 1;
-    padding: 20px;
+    padding: 15px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -227,7 +227,7 @@
 
 /* Chat Footer */
 .chat-footer {
-    padding: 20px;
+    padding: 15px 20px;
     background: rgba(0, 0, 0, 0.2);
     display: flex;
     gap: 10px;
