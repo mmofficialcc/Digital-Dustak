@@ -514,11 +514,7 @@ input:focus, textarea:focus {
 }
 
 /* Animations */
-.fade-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
+.fade-up { opacity: 1; transform: translateY(0); transition: opacity 0.8s ease, transform 0.8s ease; }
 
 .fade-up.visible {
   opacity: 1;
@@ -1184,11 +1180,7 @@ input:focus, textarea:focus {
 }
 
 /* Scroll Animations */
-.fade-up {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.35s ease-out, transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
-}
+.fade-up { opacity: 1; transform: translateY(0); transition: opacity 0.8s ease, transform 0.8s ease; }
 
 .fade-up.visible {
   opacity: 1;
