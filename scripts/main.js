@@ -56,10 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const animatedElements = document.querySelectorAll('.fade-up');
         animatedElements.forEach(el => observer.observe(el));
         
-        // Failsafe: if an element is stuck for more than 5 seconds, force show it
+        // Failsafe: ensure everything becomes visible quickly so page isn't empty
         setTimeout(() => {
             animatedElements.forEach(el => el.classList.add('visible'));
-        }, 5000);
+        }, 1000);
     } catch (err) {
         console.error("Observer Error", err);
         document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
@@ -70,12 +70,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const hudArrow = document.createElement('div');
     const hudRing = document.createElement('div');
     
-    cursorDot.className = 'cursor-dot';
+    // Removed cursor dot visual per request, keep element to avoid breaking logic
+    cursorDot.style.display = 'none'; 
+    
     hudArrow.className = 'cursor-hud-arrow';
     hudArrow.innerHTML = `
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 2H12C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22H4V2Z" fill="currentColor"/>
-            <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" fill="none"/>
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Custom 'D' Door Logo -->
+            <path d="M10,5 L20,5 C32,5 35,15 35,20 C35,25 32,35 20,35 L10,35 Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round" fill="none"/>
+            <path d="M10,5 L10,35" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+            <rect x="18" y="18" width="4" height="4" rx="2" fill="currentColor"/>
         </svg>
     `;
     hudRing.className = 'cursor-hud-ring';
