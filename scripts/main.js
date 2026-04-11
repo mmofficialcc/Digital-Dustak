@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sendBtn?.addEventListener('click', handleSendMessage);
     chatInput?.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSendMessage(); });
 
-    // ── 10. AGENT WANDERING POSITION ─────────────────────────────────────
+    // ── 10. AGENT FIXED POSITION + IDLE SHAKE ────────────────────────────
     if (chatContainer) {
         const greetings = [
             "Hi! I'm your Digital Dustak Agent.<br>How can I help you?",
@@ -421,51 +421,27 @@ document.addEventListener('DOMContentLoaded', () => {
             "Explore our portfolio to see real results."
         ];
 
-        let isWandering = true;
-
-        chatLauncher?.addEventListener('click', () => {
-            if (chatWindow?.classList.contains('active')) {
-                isWandering = false;
-                speechBubble?.classList.remove('show-bubble');
-            } else {
-                isWandering = true;
-                wanderLoop();
-            }
-        });
-
-        const moveRobot = () => {
-            if (!isWandering) return;
-            const maxX = window.innerWidth  - 200, minX = 20;
-            const maxY = window.innerHeight - 200, minY = window.innerHeight * 0.6;
-            const rX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-            const rY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
-            chatContainer.style.transform = `translate(${rX}px, ${rY}px)`;
+        // Fix agent at bottom-right corner — no wandering
+        const setPosition = () => {
+            chatContainer.style.left = `${window.innerWidth - 200}px`;
+            chatContainer.style.top  = `${window.innerHeight - 200}px`;
         };
+        setPosition();
+        window.addEventListener('resize', setPosition);
 
+        // Show greeting bubble every 8 seconds
         const showGreeting = () => {
-            if (!isWandering || !speechBubble) return;
+            if (!speechBubble || chatWindow?.classList.contains('active')) return;
             speechBubble.innerHTML = greetings[Math.floor(Math.random() * greetings.length)];
             speechBubble.classList.add('show-bubble');
             setTimeout(() => speechBubble.classList.remove('show-bubble'), 4000);
         };
 
-        const wanderLoop = () => {
-            if (!isWandering) return;
-            moveRobot();
-            setTimeout(() => {
-                if (Math.random() > 0.5) showGreeting();
-                setTimeout(wanderLoop, Math.floor(Math.random() * 3000) + 3000);
-            }, 4000);
-        };
-
-        // Start at bottom-right corner instantly
-        chatContainer.style.transition = 'none';
-        chatContainer.style.transform  = `translate(${window.innerWidth - 200}px, ${window.innerHeight - 200}px)`;
-
+        // Start greeting cycle after 3s
         setTimeout(() => {
-            chatContainer.style.transition = 'transform 4s ease-in-out';
-            wanderLoop();
-        }, 1500);
+            showGreeting();
+            setInterval(showGreeting, 8000);
+        }, 3000);
     }
 
 });
