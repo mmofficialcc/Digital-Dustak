@@ -34,8 +34,8 @@ module.exports = async (req, res) => {
     }
 
     const response = await client.messages.create({
-      model: "claude-3-haiku-20240307",
-      max_tokens: 300,
+      model: "claude-3-5-sonnet-20241022",
+      max_tokens: 400,
       system: SYSTEM_PROMPT,
       messages: messages,
     });
@@ -45,6 +45,10 @@ module.exports = async (req, res) => {
 
   } catch (error) {
     console.error("Chat API Error:", error);
-    return res.status(500).json({ error: "Internal server error", text: "Agent abhi available nahi — baad mein try karein." });
+    const errorMessage = error.message || "Unknown error";
+    return res.status(500).json({ 
+      error: "Internal server error", 
+      text: `Agent Error: ${errorMessage}. (Check your Anthropic credits or API key status)` 
+    });
   }
 };
