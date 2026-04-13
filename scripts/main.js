@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const frame = document.createElement('div');
             frame.className = 'dev-image-frame';
             frame.innerHTML = `
-                <img src="assets/team/jahanzeb-dev.jpg" alt="Muhammad Jahanzeb Asghar" onerror="this.src='assets/team/developer-jahanzeb.png'; this.onerror=null;">
+                <img src="Senior Video Editor/WhatsApp Image 2026-04-13 at 7.13.44 PM.jpeg" alt="Muhammad Jahanzeb Asghar" onerror="console.error('Image load failed'); this.onerror=null;">
                 <div class="dev-image-label">Senior Video Editor & Developer</div>
             `;
             div.appendChild(frame);
