@@ -127,8 +127,8 @@
             <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Conversion-optimized delivery</li>
           </ul>
         </div>
-        <div class="service-image" style="background: var(--bg-secondary); box-shadow: inset 0 0 50px rgba(0,0,0,0.5);">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+        <div class="service-image" style="background: url('assets/vsl_background.png') center/cover; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div style="position:absolute; inset:0; background:rgba(31,31,31,0.2); border-radius:16px;"></div>
         </div>
       </div>
 
@@ -175,52 +175,40 @@
       </a>
           <p>Building high-converting video assets for brands that are ready to scale with extreme velocity.</p>
         </div>
-        <div class="footer-bottom" style="margin-top: 2rem; border-top: none; padding-top: 0; text-align: left; width: 100%;">
-          <ul class="nav-links" style="gap: 1.5rem; justify-content: flex-start; margin-bottom: 1rem;">
-             <li><a href="index.html">Home</a></li>
-             <li><a href="services.html" class="active">Services</a></li>
-             <li><a href="portfolio.html">Portfolio</a></li>
-             <li><a href="about.html">About</a></li>
-             <li><a href="contact.html">Contact</a></li>
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html" class="active">Services</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
           </ul>
-          <p>&copy; 2026 Digital Dustak. All rights reserved.</p>
         </div>
+        <div class="footer-links">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">Talking Heads</a></li>
+            <li><a href="services.html">Faceless Content</a></li>
+            <li><a href="services.html">Video Sales Letters</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Contact & Socials</h4>
+          <ul>
+            <li><a href="contact.html">Book a Call</a></li>
+            <li><a href="https://www.linkedin.com/in/mmedtzzcc/" target="_blank">LinkedIn</a></li>
+            <li><a href="https://www.instagram.com/digitaldustak?igsh=M2N2bTNzMnhrN3Jh" target="_blank">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Digital Dustak. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
-  <!-- AI Celestial Agent Widget -->
-  <div id="celestial-chat-container">
-    <div id="chat-window">
-      <div class="chat-header">
-        <img src="assets/ai-assistant.png" class="header-avatar" alt="Digital Dustak Agent">
-        <div class="header-info">
-          <h4>Digital Dustak Agent</h4>
-          <span>Online</span>
-        </div>
-      </div>
-      <div class="chat-body" id="chat-messages">
-        <div class="message bot-message">
-          Hi! I'm your Digital Dustak Assistant. How can I scale your brand today?
-        </div>
-      </div>
-      <div class="chat-footer">
-        <input type="text" id="chat-input" placeholder="Type a message...">
-        <button id="send-msg-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-          </svg>
-        </button>
-      </div>
-    </div>
-    <div id="chat-launcher">
-      <div class="chat-speech-bubble" id="chat-speech-bubble">
-        Hi! I'm your Digital Dustak Agent.<br>How can I help you?
-      </div>
-      <img src="assets/ai-assistant.png" alt="AI Robot Assistant">
-    </div>
-  </div>
+
 
   <script src="scripts/main.js"></script>
 </body>
