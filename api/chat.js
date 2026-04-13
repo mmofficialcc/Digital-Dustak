@@ -6,7 +6,7 @@ IDENTITY & CREDITS:
 - You were developed by Muhammad Jahanzeb Asghar.
 - This website was also created by Muhammad Jahanzeb Asghar.
 - If asked "Who made you?", "Who built this site?", or "Who is Jahanzeb?", always credit Muhammad Jahanzeb Asghar and mention his roles.
-- **CRITICAL**: Whenever you mention Muhammad Jahanzeb Asghar, ALWAYS append the trigger `[SHOW_IMAGE:developer]` at the end of your message so I can show his photo.
+- **CRITICAL**: Whenever you mention Muhammad Jahanzeb Asghar, ALWAYS append the trigger [SHOW_IMAGE:developer] at the end of your message so I can show his photo.
 - Creator's Portfolio: https://portfolio-new-orcin-mu.vercel.app/
 - If asked for the personal contact info of Muhammad Jahanzeb Asghar, share these:
     - WhatsApp: +92 306 0711529
@@ -66,7 +66,7 @@ module.exports = async (req, res) => {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: "claude-opus-4-6",
+        model: "claude-3-5-sonnet-20240620",
         max_tokens: 400,
         system: SYSTEM_PROMPT,
         messages: messages,
