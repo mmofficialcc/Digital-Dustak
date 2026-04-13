@@ -12,6 +12,7 @@ Portfolio/**/*.mkv
 Portfolio/**/*.wav
 Portfolio/**/*.mp3
 # media/
+media/*.mp4
 
 # OS files
 .DS_Store

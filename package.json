@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Digital Dustak - High-Converting Video Marketing Agency",
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.20.0"
+    "@anthropic-ai/sdk": "^0.20.0",
+    "nodemailer": "^6.9.7"
   }
 }
