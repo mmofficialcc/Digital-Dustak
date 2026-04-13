@@ -27,7 +27,7 @@ exports.handler = async (event) => {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
+        model: 'claude-3-haiku-20240307',
         max_tokens: 1024,
         system: `You are the Digital Dustak 'Celestial Agent'. 
         You are a friendly, visionary, and professional representative of Digital Dustak, a top-tier video marketing agency.
