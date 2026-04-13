@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const API_KEY = process.env.ANTHROPIC_API_KEY;
+  const API_KEY = (process.env.ANTHROPIC_API_KEY || "").trim();
 
   // DEBUG LOGGING (Masked for security)
   if (API_KEY) {
@@ -47,7 +47,7 @@ module.exports = async (req, res) => {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: "claude-3-haiku-20240307",
+        model: "claude-3-sonnet-20240229",
         max_tokens: 400,
         system: SYSTEM_PROMPT,
         messages: messages,
