@@ -1,16 +1,17 @@
 # Large Media Folders
-Portfolio/
+# Portfolio/
+Portfolio/**
+!Portfolio/**/
+!Portfolio/**/*.jpg
+!Portfolio/**/*.png
+!Portfolio/**/*.gif
+!Portfolio/**/*.webp
+Portfolio/**/*.mp4
+Portfolio/**/*.mov
+Portfolio/**/*.mkv
+Portfolio/**/*.wav
+Portfolio/**/*.mp3
 # media/
-
-# Large binaries and videos
-*.mp4
-*.mkv
-*.mov
-*.wav
-*.mp3
-
-# Images (optional, but keep them if they are small)
-# assets/
 
 # OS files
 .DS_Store
