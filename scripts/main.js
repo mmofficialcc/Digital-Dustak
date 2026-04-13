@@ -373,7 +373,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const addMessage = (text, sender) => {
         const div = document.createElement('div');
         div.className = `message ${sender}-message`;
-        div.textContent = text;
+        
+        if (sender === 'bot' && text.includes('[SHOW_IMAGE:developer]')) {
+            const cleanText = text.replace('[SHOW_IMAGE:developer]', '').trim();
+            div.textContent = cleanText;
+            
+            const frame = document.createElement('div');
+            frame.className = 'dev-image-frame';
+            frame.innerHTML = `
+                <img src="assets/team/jahanzeb-dev.jpg" alt="Muhammad Jahanzeb Asghar" onerror="this.src='assets/team/developer-jahanzeb.png'; this.onerror=null;">
+                <div class="dev-image-label">Senior Video Editor & Developer</div>
+            `;
+            div.appendChild(frame);
+        } else {
+            div.textContent = text;
+        }
+        
         chatMessages?.appendChild(div);
         if (chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
     };
