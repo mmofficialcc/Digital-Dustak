@@ -88,7 +88,7 @@ module.exports = async (req, res) => {
         });
     }
 
-    const text = data.content[0]?.text || "Sorry, kuch masla aa gaya. Dobara try karein.";
+    const text = data.content[0]?.text || "Sorry, something went wrong. Please try again.";
     return res.status(200).json({ text });
 
   } catch (error) {

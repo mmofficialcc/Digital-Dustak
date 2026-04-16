@@ -419,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.text) { addMessage(data.text, 'bot'); chatHistory.push({ role: 'assistant', content: data.text }); }
         } catch (err) {
             document.getElementById(typingId)?.remove();
-            addMessage("Koshish karein baad mein — internet check karein.", 'bot');
+            addMessage("Please try again later — check your internet connection.", 'bot');
         }
     };
 
@@ -429,10 +429,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 10. AGENT FIXED POSITION + IDLE SHAKE ────────────────────────────
     if (chatContainer) {
         const greetings = [
-            "Hi! I'm your Digital Dustak Agent.<br>How can I help you?",
+            "Hi! I'm your Digital Dustak Agent. How can I help you?",
             "Ready to scale your brand? Let's talk.",
             "Need a viral hit? I'm your agent.",
-            "Main aapki kaise madad kar sakta hoon?",
+            "Experience premium video editing. Ask me how.",
             "Explore our portfolio to see real results."
         ];
 
