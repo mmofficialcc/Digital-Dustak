@@ -319,7 +319,14 @@ document.addEventListener('DOMContentLoaded', () => {
         modalInner.style.cssText = '';
     }
 
-    document.querySelectorAll('.portfolio-item, .video-container[data-youtube-id]').forEach(item => {
+    document.querySelectorAll('.portfolio-item[data-youtube-id], .video-container[data-youtube-id]').forEach(item => {
+        const youtubeId = item.dataset.youtubeId;
+        if (youtubeId && youtubeId !== 'PLACEHOLDER_ID') {
+            const placeholder = item.querySelector('.video-placeholder');
+            if (placeholder) {
+                placeholder.style.backgroundImage = `url(https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg)`;
+            }
+        }
         item.addEventListener('click', () => openModal(item));
     });
 
