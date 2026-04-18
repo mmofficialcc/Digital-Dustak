@@ -217,39 +217,45 @@ document.addEventListener('DOMContentLoaded', () => {
         animate();
     }
 
-    // ── 6. STATS COUNT-UP (fixed: threshold lowered + failsafe) ──────────
-    const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+    // ── 6. STATS COUNT-UP (Stabilized) ──────────────────────────────────
+    try {
+        const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+        const countUp = (el) => {
+            if (el.dataset.counted) return;
+            el.dataset.counted = 'true';
+            const target   = parseInt(el.getAttribute('data-target')) || 0;
+            const prefix   = el.getAttribute('data-prefix') || '';
+            const suffix   = el.getAttribute('data-suffix') || '';
+            const duration = 2000;
+            let start = null;
 
-    const countUp = (el) => {
-        if (el.dataset.counted) return; // prevent double-fire
-        el.dataset.counted = 'true';
-        const target   = parseInt(el.getAttribute('data-target'));
-        const prefix   = el.getAttribute('data-prefix') || '';
-        const suffix   = el.getAttribute('data-suffix') || '';
-        const duration = 2000;
-        let start = null;
-        const step = (ts) => {
-            if (!start) start = ts;
-            const progress = Math.min((ts - start) / duration, 1);
-            const ease = 1 - Math.pow(2, -10 * progress);
-            el.textContent = `${prefix}${Math.floor(ease * target)}${suffix}`;
-            if (progress < 1) requestAnimationFrame(step);
-            else el.textContent = `${prefix}${target}${suffix}`;
+            const step = (ts) => {
+                if (!start) start = ts;
+                const progress = Math.min((ts - start) / duration, 1);
+                const ease = 1 - Math.pow(2, -10 * progress);
+                el.textContent = `${prefix}${Math.floor(ease * target)}${suffix}`;
+                if (progress < 1) requestAnimationFrame(step);
+                else el.textContent = `${prefix}${target}${suffix}`;
+            };
+            requestAnimationFrame(step);
         };
-        requestAnimationFrame(step);
-    };
 
-    if (statNumbers.length > 0) {
-        const statsObs = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) { countUp(entry.target); statsObs.unobserve(entry.target); }
-            });
-        }, { threshold: 0.1 }); // lowered from 0.5 so it fires earlier
+        if (statNumbers.length > 0) {
+            const statsObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) { 
+                        countUp(entry.target); 
+                        statsObs.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.1 });
 
-        statNumbers.forEach(s => statsObs.observe(s));
-
-        // Hard failsafe: if still 0 after 3s, fire anyway
-        setTimeout(() => statNumbers.forEach(s => countUp(s)), 3000);
+            statNumbers.forEach(s => statsObs.observe(s));
+            // Failsafe: if not triggered by scroll, fire after 2s
+            setTimeout(() => statNumbers.forEach(s => countUp(s)), 2000);
+        }
+    } catch (err) {
+        console.warn("Stats Error:", err);
     }
 
     // ── 7. VIDEO HANDLING (YouTube lazy-load + local video modal) ─────────
@@ -319,16 +325,21 @@ document.addEventListener('DOMContentLoaded', () => {
         modalInner.style.cssText = '';
     }
 
-    document.querySelectorAll('.portfolio-item[data-youtube-id], .video-container[data-youtube-id]').forEach(item => {
-        const youtubeId = item.dataset.youtubeId;
-        if (youtubeId && youtubeId !== 'PLACEHOLDER_ID') {
-            const placeholder = item.querySelector('.video-placeholder');
-            if (placeholder) {
-                placeholder.style.backgroundImage = `url(https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg)`;
+    try {
+        document.querySelectorAll('.portfolio-item[data-youtube-id], .video-container[data-youtube-id]').forEach(item => {
+            const youtubeId = item.dataset.youtubeId;
+            if (youtubeId && youtubeId !== 'PLACEHOLDER_ID') {
+                const placeholder = item.querySelector('.video-placeholder');
+                if (placeholder) {
+                    // Try high-quality first, then fallback
+                    placeholder.style.backgroundImage = `url(https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg)`;
+                }
             }
-        }
-        item.addEventListener('click', () => openModal(item));
-    });
+            item.addEventListener('click', () => openModal(item));
+        });
+    } catch (err) {
+        console.warn("Video Thumbnail Error:", err);
+    }
 
     modalClose?.addEventListener('click', (e) => { e.stopPropagation(); closeModal(); });
     modalBackdrop?.addEventListener('click', closeModal);

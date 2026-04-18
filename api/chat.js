@@ -71,7 +71,7 @@ module.exports = async (req, res) => {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: "claude-opus-4-6",
+        model: "claude-3-5-sonnet-20240620",
         max_tokens: 400,
         system: SYSTEM_PROMPT,
         messages: messages,
