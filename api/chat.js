@@ -73,8 +73,8 @@ module.exports = async (req, res) => {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: "claude-3-haiku-20240307", // Switching to Haiku for better availability
-        max_tokens: 600,
+        model: "claude-sonnet-4-6", // Upgraded to 2026 latest stable model
+        max_tokens: 1000,
         system: SYSTEM_PROMPT,
         messages: messages,
       }),
