@@ -432,12 +432,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ messages: chatHistory })
             });
+
             const data = await res.json();
             document.getElementById(typingId)?.remove();
-            if (data.text) { addMessage(data.text, 'bot'); chatHistory.push({ role: 'assistant', content: data.text }); }
+
+            if (res.ok && data.text) {
+                // Success: Add message and update history
+                addMessage(data.text, 'bot');
+                chatHistory.push({ role: 'assistant', content: data.text });
+            } else if (data.text) {
+                // API Error (handled by backend): Show error but DON'T push to history
+                addMessage(data.text, 'bot');
+            } else {
+                // Unexpected response format
+                addMessage("I encountered an unexpected issue. Please try again.", 'bot');
+            }
         } catch (err) {
+            console.error("Fetch Error:", err);
             document.getElementById(typingId)?.remove();
-            addMessage("Please try again later — check your internet connection.", 'bot');
+            addMessage("Unable to connect to the agent. Please check your internet connection and try again.", 'bot');
         }
     };
 

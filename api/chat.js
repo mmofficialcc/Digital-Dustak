@@ -49,10 +49,12 @@ module.exports = async (req, res) => {
   const API_KEY = (process.env.ANTHROPIC_API_KEY || "").trim();
 
   // DEBUG LOGGING (Masked for security)
-  if (API_KEY) {
-    console.log(`DEBUG: API Key starts with: ${API_KEY.substring(0, 16)}...`);
-  } else {
+  if (!API_KEY) {
     console.error("DEBUG: ANTHROPIC_API_KEY is MISSING in environment variables.");
+    return res.status(500).json({ 
+      error: "API Key Missing", 
+      text: "System Error: The Anthropic API Key is missing. Please set ANTHROPIC_API_KEY in Vercel settings." 
+    });
   }
 
   try {
@@ -71,8 +73,8 @@ module.exports = async (req, res) => {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: "claude-3-sonnet-20240229",
-        max_tokens: 400,
+        model: "claude-3-5-sonnet-20240620", // Upgraded from retired sonnet-3
+        max_tokens: 600,
         system: SYSTEM_PROMPT,
         messages: messages,
       }),
@@ -82,13 +84,19 @@ module.exports = async (req, res) => {
 
     if (!response.ok) {
         console.error("Anthropic API Raw Error:", data);
+        let userMessage = "Sorry, I'm having trouble connecting to my brain right now.";
+        
+        if (response.status === 401) userMessage = "System Authentication Error: Invalid API Key.";
+        if (response.status === 429) userMessage = "System is busy (Rate Limited). Please try again in a moment.";
+        if (response.status === 404) userMessage = "Model not found or retired. Please contact the administrator.";
+
         return res.status(response.status).json({ 
           error: "API Error", 
-          text: `Agent Error: ${response.status} ${JSON.stringify(data.error || data)}. (Check Vercel logs for masked key prefix)` 
+          text: `Agent Error: ${userMessage} (${response.status})`
         });
     }
 
-    const text = data.content[0]?.text || "Sorry, something went wrong. Please try again.";
+    const text = data.content[0]?.text || "I'm sorry, I couldn't generate a response. Please try again.";
     return res.status(200).json({ text });
 
   } catch (error) {
