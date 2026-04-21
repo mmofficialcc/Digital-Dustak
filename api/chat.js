@@ -64,6 +64,10 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: "Invalid messages format" });
     }
 
+    // Enhanced multi-modal support: Anthropic expects messages to be an array.
+    // If a message has 'content' as an array, it's already multi-modal.
+    // We pass the messages directly as they are prepared by the frontend.
+    
     // Using native fetch to avoid SDK version conflicts
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -73,8 +77,8 @@ module.exports = async (req, res) => {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-6", // Upgraded to 2026 latest stable model
-        max_tokens: 1000,
+        model: "claude-sonnet-4-6", // Latest 2026 stable model
+        max_tokens: 1024, // Slightly increased for image analysis
         system: SYSTEM_PROMPT,
         messages: messages,
       }),

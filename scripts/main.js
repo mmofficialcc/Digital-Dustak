@@ -361,7 +361,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ── 9. AI AGENT (single instance, no duplicate) ───────────────────────
-    // Agent widget is already in HTML — we just control it, not create it
     const chatContainer = document.getElementById('celestial-chat-container');
     const chatLauncher  = document.getElementById('chat-launcher');
     const chatWindow    = document.getElementById('chat-window');
@@ -369,8 +368,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendBtn       = document.getElementById('send-msg-btn');
     const chatMessages  = document.getElementById('chat-messages');
     const speechBubble  = document.getElementById('chat-speech-bubble');
+    
+    // Phase 1: Upload handles
+    const attachBtn     = document.getElementById('attach-btn');
+    const fileInput     = document.getElementById('chat-file-input');
+    const previewArea   = document.getElementById('chat-preview-container');
 
     let chatHistory = [];
+    let pendingFile = null;
+
+    // Helper: Resize Image to stay under Vercel body limits
+    const resizeImage = (file, maxWidth = 800) => {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (e) => {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > maxWidth) {
+                        height = (maxWidth / width) * height;
+                        width = maxWidth;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // Return as Base64 (JPEG for smaller size)
+                    resolve(canvas.toDataURL('image/jpeg', 0.8));
+                };
+            };
+        });
+    };
 
     // Toggle chat window
     chatLauncher?.addEventListener('click', () => {
@@ -381,6 +416,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // File selection
+    attachBtn?.addEventListener('click', () => fileInput?.click());
+    
+    fileInput?.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (file.type.startsWith('image/')) {
+            const resizedBase64 = await resizeImage(file);
+            pendingFile = {
+                type: 'image',
+                data: resizedBase64.split(',')[1], // Just the base64 part
+                mime: 'image/jpeg',
+                preview: resizedBase64
+            };
+            
+            // Show preview
+            if (previewArea) {
+                previewArea.innerHTML = `
+                    <div class="preview-item">
+                        <img src="${pendingFile.preview}">
+                        <div class="remove-preview">&times;</div>
+                    </div>
+                `;
+                previewArea.style.display = 'flex';
+                
+                previewArea.querySelector('.remove-preview')?.addEventListener('click', () => {
+                    pendingFile = null;
+                    previewArea.style.display = 'none';
+                    fileInput.value = '';
+                });
+            }
+        } else {
+            // Document support (Text only for now, PDF/Doc would need a different parser or direct upload)
+            addMessage("Documents are currently processed as vision-inputs. Try uploading an image of the document!", 'bot');
+            fileInput.value = '';
+        }
+    });
+
     // Close on outside click
     document.addEventListener('click', (e) => {
         if (!chatLauncher?.contains(e.target) && !chatWindow?.contains(e.target)) {
@@ -388,13 +462,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const addMessage = (text, sender) => {
+    const addMessage = (text, sender, image = null) => {
         const div = document.createElement('div');
         div.className = `message ${sender}-message`;
         
+        if (image) {
+            const img = document.createElement('img');
+            img.src = image;
+            img.style.maxWidth = '100%';
+            img.style.borderRadius = '8px';
+            img.style.marginBottom = '8px';
+            img.style.display = 'block';
+            div.appendChild(img);
+        }
+
+        const textSpan = document.createElement('span');
         if (sender === 'bot' && text.includes('[SHOW_IMAGE:developer]')) {
             const cleanText = text.replace('[SHOW_IMAGE:developer]', '').trim();
-            div.textContent = cleanText;
+            textSpan.textContent = cleanText;
+            div.appendChild(textSpan);
             
             const frame = document.createElement('div');
             frame.className = 'dev-image-frame';
@@ -404,7 +490,8 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             div.appendChild(frame);
         } else {
-            div.textContent = text;
+            textSpan.textContent = text;
+            div.appendChild(textSpan);
         }
         
         chatMessages?.appendChild(div);
@@ -413,10 +500,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const handleSendMessage = async () => {
         const text = chatInput?.value.trim();
-        if (!text) return;
+        if (!text && !pendingFile) return;
+        
         chatInput.value = '';
-        addMessage(text, 'user');
-        chatHistory.push({ role: 'user', content: text });
+        const currentPendingFile = pendingFile;
+        pendingFile = null;
+        if (previewArea) previewArea.style.display = 'none';
+
+        // 1. Prepare message content
+        let userContent;
+        if (currentPendingFile) {
+            addMessage(text || "Analyzing this image...", 'user', currentPendingFile.preview);
+            userContent = [
+                { type: "text", text: text || "Analyze this image." },
+                { 
+                    type: "image", 
+                    source: { 
+                        type: "base64", 
+                        media_type: currentPendingFile.mime, 
+                        data: currentPendingFile.data 
+                    } 
+                }
+            ];
+        } else {
+            addMessage(text, 'user');
+            userContent = text;
+        }
+
+        chatHistory.push({ role: 'user', content: userContent });
 
         const typingId = 'typing-' + Date.now();
         const typingDiv = document.createElement('div');
@@ -437,20 +548,17 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById(typingId)?.remove();
 
             if (res.ok && data.text) {
-                // Success: Add message and update history
                 addMessage(data.text, 'bot');
                 chatHistory.push({ role: 'assistant', content: data.text });
             } else if (data.text) {
-                // API Error (handled by backend): Show error but DON'T push to history
                 addMessage(data.text, 'bot');
             } else {
-                // Unexpected response format
                 addMessage("I encountered an unexpected issue. Please try again.", 'bot');
             }
         } catch (err) {
             console.error("Fetch Error:", err);
             document.getElementById(typingId)?.remove();
-            addMessage("Unable to connect to the agent. Please check your internet connection and try again.", 'bot');
+            addMessage("Unable to connect to the agent. Please check your internet connection.", 'bot');
         }
     };
 
