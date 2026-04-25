@@ -393,8 +393,22 @@
 /* Mobile Adjustments */
 @media (max-width: 480px) {
     #chat-window {
-        width: calc(100vw - 40px);
-        height: 70vh;
-        bottom: 90px;
+        width: calc(100vw - 30px);
+        height: 60vh;
+        bottom: 80px;
+        right: 15px;
+    }
+    #chat-launcher {
+        width: 140px;
+        height: 180px;
+    }
+    .chat-speech-bubble {
+        top: -65px;
+        right: 10px;
+        font-size: 11px;
+        padding: 8px 14px;
+        white-space: normal;
+        max-width: 150px;
+        line-height: 1.4;
     }
 }

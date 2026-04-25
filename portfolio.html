@@ -56,11 +56,25 @@
   <!-- Portfolio Section -->
   <section class="section" style="background: var(--bg-primary); padding-top: 0;">
     <div class="container">
+      <!-- Portfolio Filter Bar -->
+      <div class="portfolio-filter-container container fade-up">
+        <div class="portfolio-filter-bar">
+          <button class="filter-btn active" data-category="all">All</button>
+          <button class="filter-btn" data-category="personal-branding">Personal Branding</button>
+          <button class="filter-btn" data-category="talking-head">Talking Heads</button>
+          <button class="filter-btn" data-category="podcasts">Podcasts</button>
+          <button class="filter-btn" data-category="long-form">Long Form</button>
+          <button class="filter-btn" data-category="faceless">Faceless</button>
+          <button class="filter-btn" data-category="pov">POV Type</button>
+          <button class="filter-btn" data-category="arts">Arts/Coloring</button>
+        </div>
+      </div>
+
       <!-- Portfolio Showcase -->
       <div class="portfolio-showcase">
         
         <!-- Category: Personal Branding -->
-        <div class="portfolio-category">
+        <div class="portfolio-category" data-category="personal-branding">
           <h3 class="category-title">Personal <span class="highlight">Branding</span></h3>
           <div class="portfolio-grid vertical-grid">
             <div class="portfolio-item vertical fade-up" data-youtube-id="JxXX9fIBWM4">
@@ -88,7 +102,7 @@
         </div>
 
         <!-- Category: Talking Head Ads -->
-        <div class="portfolio-category">
+        <div class="portfolio-category" data-category="talking-head">
           <h3 class="category-title">Talking <span class="highlight">Head</span></h3>
           <div class="portfolio-grid vertical-grid">
             <div class="portfolio-item vertical fade-up" data-youtube-id="FrzUbFvevA4">
@@ -195,7 +209,7 @@
 
 
         <!-- Category: Podcasts Intro -->
-        <div class="portfolio-category">
+        <div class="portfolio-category" data-category="podcasts">
           <h3 class="category-title">Podcasts <span class="highlight">Intro</span></h3>
           <div class="portfolio-grid">
             <div class="portfolio-item fade-up" data-youtube-id="lTNzJZaScuw">
@@ -224,7 +238,7 @@
         </div>
 
         <!-- Category: Long-Form Content -->
-        <div class="portfolio-category">
+        <div class="portfolio-category" data-category="long-form">
           <h3 class="category-title">Long-Form <span class="highlight">Content</span></h3>
           <div class="portfolio-grid">
             <div class="portfolio-item fade-up" data-youtube-id="HYxzPYQuSos">
@@ -315,7 +329,7 @@
         </div>
 
         <!-- Category: Motion Graphics Faceless Video -->
-        <div class="portfolio-category">
+        <div class="portfolio-category" data-category="faceless">
           <h3 class="category-title">Motion Graphics <span class="highlight">Faceless Video</span></h3>
           <div class="portfolio-grid vertical-grid">
             <div class="portfolio-item vertical fade-up" data-youtube-id="Npjl4-Vu2yU">
@@ -337,7 +351,7 @@
         </div>
 
         <!-- Category: POV Type Video -->
-        <div class="portfolio-category">
+        <div class="portfolio-category" data-category="pov">
           <h3 class="category-title">POV Type <span class="highlight">Video</span></h3>
           <div class="portfolio-grid vertical-grid">
             <div class="portfolio-item vertical fade-up" data-youtube-id="ez49d6QwOLA">
@@ -373,7 +387,7 @@
         </div>
 
         <!-- Category: Arts Coloring -->
-        <div class="portfolio-category">
+        <div class="portfolio-category" data-category="arts">
           <h3 class="category-title">Arts <span class="highlight">Coloring</span></h3>
           <div class="portfolio-grid vertical-grid">
             <div class="portfolio-item vertical fade-up" data-youtube-id="PfTbqVlhajQ">

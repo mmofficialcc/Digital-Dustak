@@ -591,4 +591,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
+    // ── 11. PORTFOLIO FILTERING ───────────────────────────────────────────
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioCategories = document.querySelectorAll('.portfolio-category');
+
+    if (filterBtns.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.category;
+
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter categories
+                portfolioCategories.forEach(cat => {
+                    if (category === 'all' || cat.dataset.category === category) {
+                        cat.style.display = 'block';
+                        // Re-trigger fade-up for visible items
+                        cat.querySelectorAll('.fade-up').forEach(item => {
+                            item.classList.add('visible');
+                        });
+                    } else {
+                        cat.style.display = 'none';
+                    }
+                });
+
+                // Smooth scroll to top of portfolio when filtering
+                const filterContainer = document.querySelector('.portfolio-filter-container');
+                if (filterContainer) {
+                    window.scrollTo({
+                        top: filterContainer.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+
 });
